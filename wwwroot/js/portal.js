@@ -811,7 +811,7 @@ async function loadRoles() {
 function renderRolesTable(roles) {
   const tbody = document.getElementById('rolesTableBody');
   if (!roles || roles.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 24px; color: #94A3B8;">No roles found.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 24px; color: #94A3B8;">No roles found.</td></tr>`;
     return;
   }
 
@@ -824,11 +824,6 @@ function renderRolesTable(roles) {
       </td>
       <td style="color: #475569;">${r.description}</td>
       <td style="font-weight: 700;">${r.users}</td>
-      <td>
-        <span class="status-badge ${r.status.toLowerCase() === 'active' ? 'status-active' : 'status-inactive'}">
-          ${r.status}
-        </span>
-      </td>
       <td>
         <div class="action-buttons-cell">
           <button class="table-action-btn" title="Configure Matrix" onclick="switchView('permissions', '${r.name}')">
