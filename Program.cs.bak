@@ -1,0 +1,337 @@
+using System;
+using System.IO;
+using System.Linq;
+using ArcelorMittalPortal.Models;
+using ArcelorMittalPortal.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Register Database Service
+builder.Services.AddSingleton<DatabaseService>();
+
+// Configure DataProtection keys inside the database folder
+var keysDir = Path.Combine(Directory.GetCurrentDirectory(), "database", "keys");
+if (!Directory.Exists(keysDir))
+{
+    Directory.CreateDirectory(keysDir);
+}
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(keysDir))
+    .SetApplicationName("ArcelorMittalPortal");
+
+// Enable Distributed Memory Cache & Session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+var app = builder.Build();
+
+app.UseSession();
+
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value?.ToLowerInvariant() ?? "";
+    var isAuth = context.Session.GetString("IsAuthenticated") == "true";
+
+    if ((path == "/" || path == "/index.html") && !isAuth)
+    {
+        context.Response.Redirect("/login.html");
+        return;
+    }
+
+    if (path == "/login.html" && isAuth)
+    {
+        context.Response.Redirect("/index.html");
+        return;
+    }
+
+    await next();
+});
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+#region Auth Endpoints
+app.MapPost("/api/auth/login", (LoginRequest req, HttpContext ctx, DatabaseService db) =>
+{
+    if ((req.Username == "admin" && req.Password == "admin") ||
+        (req.Username == "EMP001" && req.Password == "password"))
+    {
+        ctx.Session.SetString("IsAuthenticated", "true");
+        ctx.Session.SetString("Username", req.Username == "admin" ? "Admin User" : "Ahmed Khan");
+        ctx.Session.SetString("Role", "Administrator");
+
+        db.AddAudit("User Login", "Authentication", $"User {req.Username} logged in successfully");
+
+        return Results.Ok(new ApiResponse<object>
+        {
+            Success = true,
+            Message = "Login successful",
+            Data = new { Username = "Admin User", Role = "Administrator", EmployeeId = "EMP000" }
+        });
+    }
+
+    return Results.BadRequest(new ApiResponse<object>
+    {
+        Success = false,
+        Message = "Invalid username or password. Default is admin / admin."
+    });
+});
+
+app.MapPost("/api/auth/logout", (HttpContext ctx, DatabaseService db) =>
+{
+    var username = ctx.Session.GetString("Username") ?? "Admin User";
+    db.AddAudit("User Logout", "Authentication", $"User {username} logged out");
+    ctx.Session.Clear();
+    return Results.Ok(new ApiResponse<bool> { Success = true, Message = "Logged out successfully" });
+});
+
+app.MapGet("/api/auth/current", (HttpContext ctx) =>
+{
+    var isAuth = ctx.Session.GetString("IsAuthenticated") == "true";
+    return Results.Ok(new
+    {
+        IsAuthenticated = isAuth,
+        Username = ctx.Session.GetString("Username") ?? "Admin User",
+        Role = ctx.Session.GetString("Role") ?? "Administrator"
+    });
+});
+#endregion
+
+#region Screen 1: Dashboard Endpoints
+app.MapGet("/api/dashboard", (string? startDate, string? endDate, DatabaseService db) =>
+{
+    DateTime? s = null;
+    DateTime? e = null;
+    if (DateTime.TryParse(startDate, out var parsedStart)) s = parsedStart;
+    if (DateTime.TryParse(endDate, out var parsedEnd)) e = parsedEnd;
+
+    var metrics = db.GetDashboardMetrics(s, e);
+    return Results.Ok(metrics);
+});
+#endregion
+
+#region Screen 2: User Management Endpoints
+app.MapGet("/api/users", (string? search, string? status, string? role, int? page, int? pageSize, DatabaseService db) =>
+{
+    var p = page.GetValueOrDefault(1);
+    var ps = pageSize.GetValueOrDefault(5);
+    p = p <= 0 ? 1 : p;
+    ps = ps <= 0 ? 5 : ps;
+
+    var users = db.GetUsers().AsEnumerable();
+
+    if (!string.IsNullOrWhiteSpace(search))
+    {
+        var s = search.Trim().ToLowerInvariant();
+        users = users.Where(u => u.Name.ToLowerInvariant().Contains(s) ||
+                                 u.Email.ToLowerInvariant().Contains(s) ||
+                                 u.EmployeeId.ToLowerInvariant().Contains(s));
+    }
+
+    if (!string.IsNullOrWhiteSpace(status) && !status.Equals("All", StringComparison.OrdinalIgnoreCase))
+    {
+        users = users.Where(u => u.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
+    }
+
+    if (!string.IsNullOrWhiteSpace(role) && !role.Equals("All", StringComparison.OrdinalIgnoreCase))
+    {
+        users = users.Where(u => u.Role.Equals(role, StringComparison.OrdinalIgnoreCase));
+    }
+
+    var total = users.Count();
+    var items = users.Skip((p - 1) * ps).Take(ps).ToList();
+    var totalPages = (int)Math.Ceiling((double)total / ps);
+
+    return Results.Ok(new
+    {
+        Total = total,
+        Page = p,
+        PageSize = ps,
+        TotalPages = totalPages,
+        Items = items
+    });
+});
+
+app.MapGet("/api/users/next-id", (DatabaseService db) =>
+{
+    var users = db.GetUsers();
+    int maxNum = 56; // Base existing users are 56, so newly created users start from 57
+    foreach (var u in users)
+    {
+        var match = System.Text.RegularExpressions.Regex.Match(u.EmployeeId ?? "", @"\d+");
+        if (match.Success && int.TryParse(match.Value, out int n))
+        {
+            if (n > maxNum) maxNum = n;
+        }
+    }
+    int nextNum = maxNum + 1;
+    string nextId = $"EMP{nextNum:D3}";
+    return Results.Ok(new { NextId = nextId, NextNumber = nextNum });
+});
+
+app.MapPost("/api/users", (User user, DatabaseService db) =>
+{
+    if (string.IsNullOrWhiteSpace(user.EmployeeId) || string.IsNullOrWhiteSpace(user.Name) || string.IsNullOrWhiteSpace(user.Email))
+    {
+        return Results.BadRequest(new { Success = false, Message = "Employee ID, Name, and Email are required." });
+    }
+
+    var ok = db.AddUser(user);
+    if (!ok)
+    {
+        return Results.BadRequest(new { Success = false, Message = "User with this Employee ID or Email already exists." });
+    }
+
+    return Results.Ok(new { Success = true, Message = "User created successfully", User = user });
+});
+
+app.MapPut("/api/users/{employeeId}", (string employeeId, User updatedUser, DatabaseService db) =>
+{
+    updatedUser.EmployeeId = employeeId;
+    var ok = db.UpdateUser(updatedUser);
+    if (!ok)
+    {
+        return Results.NotFound(new { Success = false, Message = "User not found." });
+    }
+
+    return Results.Ok(new { Success = true, Message = "User updated successfully", User = updatedUser });
+});
+
+app.MapDelete("/api/users/{employeeId}", (string employeeId, DatabaseService db) =>
+{
+    var ok = db.DeleteUser(employeeId);
+    if (!ok)
+    {
+        return Results.NotFound(new { Success = false, Message = "User not found." });
+    }
+
+    return Results.Ok(new { Success = true, Message = "User deleted successfully" });
+});
+#endregion
+
+#region Screen 3: Role & Permissions Endpoints
+app.MapGet("/api/roles", (string? search, DatabaseService db) =>
+{
+    var roles = db.GetRoles().AsEnumerable();
+    if (!string.IsNullOrWhiteSpace(search))
+    {
+        roles = roles.Where(r => r.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                                 r.Description.Contains(search, StringComparison.OrdinalIgnoreCase));
+    }
+    return Results.Ok(roles.ToList());
+});
+
+app.MapPost("/api/roles", (Role role, DatabaseService db) =>
+{
+    if (string.IsNullOrWhiteSpace(role.Name))
+    {
+        return Results.BadRequest(new { Success = false, Message = "Role Name is required." });
+    }
+
+    var ok = db.AddRole(role);
+    if (!ok)
+    {
+        return Results.BadRequest(new { Success = false, Message = "Role with this name already exists." });
+    }
+
+    return Results.Ok(new { Success = true, Message = "Role created successfully", Role = role });
+});
+
+app.MapPut("/api/roles/{id}", (string id, Role updated, DatabaseService db) =>
+{
+    updated.Id = id;
+    var ok = db.UpdateRole(updated);
+    if (!ok)
+    {
+        return Results.NotFound(new { Success = false, Message = "Role not found." });
+    }
+
+    return Results.Ok(new { Success = true, Message = "Role updated successfully", Role = updated });
+});
+
+app.MapDelete("/api/roles/{roleName}", (string roleName, DatabaseService db) =>
+{
+    var ok = db.DeleteRole(roleName);
+    if (!ok)
+    {
+        return Results.BadRequest(new { Success = false, Message = "Cannot delete Administrator role or role not found." });
+    }
+
+    return Results.Ok(new { Success = true, Message = "Role deleted successfully" });
+});
+#endregion
+
+#region Screen 4: Permission Matrix Endpoints
+app.MapGet("/api/permissions/{roleName}", (string roleName, DatabaseService db) =>
+{
+    var perms = db.GetRolePermissions(roleName);
+    return Results.Ok(perms);
+});
+
+app.MapPost("/api/permissions", (RolePermissions req, DatabaseService db) =>
+{
+    if (string.IsNullOrWhiteSpace(req.RoleName))
+    {
+        return Results.BadRequest(new { Success = false, Message = "Role name is required." });
+    }
+
+    var ok = db.SaveRolePermissions(req);
+    return Results.Ok(new { Success = ok, Message = "Permissions saved successfully" });
+});
+#endregion
+
+#region Screen 5: Application Settings Endpoints
+app.MapGet("/api/settings", (DatabaseService db) =>
+{
+    var settings = db.GetSettings();
+    return Results.Ok(settings);
+});
+
+app.MapPost("/api/settings", (AppSettingsModel settings, DatabaseService db) =>
+{
+    var ok = db.SaveSettings(settings);
+    return Results.Ok(new { Success = ok, Message = "Settings updated successfully", Settings = settings });
+});
+#endregion
+
+#region Screen 6: Audit & Activity Endpoints
+app.MapGet("/api/audits", (string? search, string? startDate, string? endDate, int? page, int? pageSize, DatabaseService db) =>
+{
+    var p = page.GetValueOrDefault(1);
+    var ps = pageSize.GetValueOrDefault(5);
+    p = p <= 0 ? 1 : p;
+    ps = ps <= 0 ? 5 : ps;
+
+    DateTime? s = null;
+    DateTime? e = null;
+    if (!string.IsNullOrWhiteSpace(startDate) && DateTime.TryParse(startDate, out var parsedStart)) s = parsedStart;
+    if (!string.IsNullOrWhiteSpace(endDate) && DateTime.TryParse(endDate, out var parsedEnd)) e = parsedEnd;
+
+    var audits = db.GetAudits(search, s, e);
+
+    var total = audits.Count;
+    var items = audits.Skip((p - 1) * ps).Take(ps).ToList();
+    var totalPages = (int)Math.Ceiling((double)total / ps);
+
+    return Results.Ok(new
+    {
+        Total = total,
+        Page = p,
+        PageSize = ps,
+        TotalPages = totalPages,
+        Items = items
+    });
+});
+#endregion
+
+app.Run();

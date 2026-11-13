@@ -1,0 +1,102 @@
+{
+  "CompanyName": "ArcelorMittal Tubular Products",
+  "DefaultUnit": "Metric (m, mm, kg)",
+  "DateFormat": "DD-MMM-YYYY",
+  "TimeZone": "(GMT\u002B04:00) Abu Dhabi",
+  "SessionTimeoutMinutes": 30,
+  "EnableMixWarning": true,
+  "EnableDuplicatePipeCheck": true,
+  "EnableRejectionReasons": true,
+  "EnableStockCountUpload": true,
+  "EnableAuditTrail": true,
+  "PipeIdPrefix": "P-",
+  "JointNumberStart": 1,
+  "DefaultConnectionType": "API",
+  "DefaultDriftType": "Full Drift",
+  "EffectiveLengthUnit": "m (Meter)",
+  "AllowTallyCreation": true,
+  "AllowTallyEditing": true,
+  "EnforceUniquePipeInTally": true,
+  "AutoGenerateJointSequence": true,
+  "AllowTallyClosure": true,
+  "InspectionThresholdMm": 0.25,
+  "DefaultInspectionType": "Dimensional",
+  "MaxReworkAttempts": 2,
+  "InspectionValidityDays": 180,
+  "RejectionReasons": [
+    {
+      "Id": "1",
+      "Name": "Crack",
+      "Status": "Active"
+    },
+    {
+      "Id": "2",
+      "Name": "Corrosion",
+      "Status": "Active"
+    },
+    {
+      "Id": "3",
+      "Name": "Out of Tolerance",
+      "Status": "Active"
+    },
+    {
+      "Id": "4",
+      "Name": "Thread Damage",
+      "Status": "Active"
+    },
+    {
+      "Id": "5",
+      "Name": "Other",
+      "Status": "Active"
+    }
+  ],
+  "AlertConfigurations": [
+    {
+      "Type": "Inspection Rejected",
+      "InApp": true,
+      "Email": true,
+      "Sms": false
+    },
+    {
+      "Type": "Duplicate Pipe Detected",
+      "InApp": true,
+      "Email": true,
+      "Sms": true
+    },
+    {
+      "Type": "Stock Count Threshold",
+      "InApp": true,
+      "Email": true,
+      "Sms": false
+    },
+    {
+      "Type": "Tally Approval Pending",
+      "InApp": true,
+      "Email": false,
+      "Sms": false
+    },
+    {
+      "Type": "System Alerts \u0026 Errors",
+      "InApp": true,
+      "Email": true,
+      "Sms": true
+    }
+  ],
+  "EnableNotifications": true,
+  "NotificationFrequency": "Real-time",
+  "DailySummaryEmail": true,
+  "RecipientsAdmin": "admin@arcelormittal.com",
+  "ApplicationVersion": "v1.0.0",
+  "Environment": "Production",
+  "SystemName": "Pipe Traceability Web Portal",
+  "LastUpdated": "Jun 15, 2025 10:24",
+  "EnableAutoBackup": true,
+  "BackupFrequency": "Daily",
+  "RetentionPeriodDays": 90,
+  "BackupLocation": "D:\\Backups\\PipeTraceability",
+  "EnableMfa": true,
+  "EnableSso": false,
+  "ErpIntegrationApi": false,
+  "DataWarehouseIntegration": true,
+  "LogRetentionDays": 365
+}

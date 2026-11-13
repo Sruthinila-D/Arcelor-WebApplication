@@ -1,0 +1,506 @@
+[
+  {
+    "EmployeeId": "EMP001",
+    "Name": "Ahmed Khan",
+    "Email": "ahmed.khan@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-13T16:05:53.6478059Z"
+  },
+  {
+    "EmployeeId": "EMP002",
+    "Name": "Sarah Rodriguez",
+    "Email": "sarah.rodriguez@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-18T16:05:53.6478397Z"
+  },
+  {
+    "EmployeeId": "EMP003",
+    "Name": "Omar Patel",
+    "Email": "omar.patel@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-23T16:05:53.64784Z"
+  },
+  {
+    "EmployeeId": "EMP004",
+    "Name": "Lina Costa",
+    "Email": "lina.costa@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-03T16:05:53.6478419Z"
+  },
+  {
+    "EmployeeId": "EMP005",
+    "Name": "Mark Evans",
+    "Email": "mark.evans@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Inactive",
+    "Password": "password",
+    "CreatedAt": "2026-10-13T16:05:53.6478421Z"
+  },
+  {
+    "EmployeeId": "EMP006",
+    "Name": "Elena Rostova",
+    "Email": "elena.rostova@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-08-29T16:05:53.6478434Z"
+  },
+  {
+    "EmployeeId": "EMP007",
+    "Name": "David Kim",
+    "Email": "david.kim@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-15T16:05:53.6478436Z"
+  },
+  {
+    "EmployeeId": "EMP008",
+    "Name": "Fatima Al-Mansoor",
+    "Email": "fatima.mansoor@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-18T16:05:53.6478438Z"
+  },
+  {
+    "EmployeeId": "EMP009",
+    "Name": "Jean Dupont",
+    "Email": "jean.dupont@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-21T16:05:53.6478441Z"
+  },
+  {
+    "EmployeeId": "EMP010",
+    "Name": "Carlos Santos",
+    "Email": "carlos.santos@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-23T16:05:53.6478445Z"
+  },
+  {
+    "EmployeeId": "EMP011",
+    "Name": "Hans Becker",
+    "Email": "hans.becker@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-25T16:05:53.6478447Z"
+  },
+  {
+    "EmployeeId": "EMP012",
+    "Name": "Rajan Sharma",
+    "Email": "rajan.sharma@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-28T16:05:53.6478449Z"
+  },
+  {
+    "EmployeeId": "EMP013",
+    "Name": "Chloe Dubois",
+    "Email": "chloe.dubois@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-29T16:05:53.6478451Z"
+  },
+  {
+    "EmployeeId": "EMP014",
+    "Name": "Michael Chang",
+    "Email": "michael.chang@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-31T16:05:53.6478453Z"
+  },
+  {
+    "EmployeeId": "EMP015",
+    "Name": "Amina Al-Nuaimi",
+    "Email": "amina.nuaimi@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-11-02T16:05:53.6478455Z"
+  },
+  {
+    "EmployeeId": "EMP016",
+    "Name": "Team Member 16",
+    "Email": "member.16@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-27T16:05:53.64787Z"
+  },
+  {
+    "EmployeeId": "EMP017",
+    "Name": "Team Member 17",
+    "Email": "member.17@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-26T16:05:53.6478707Z"
+  },
+  {
+    "EmployeeId": "EMP018",
+    "Name": "Team Member 18",
+    "Email": "member.18@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Inactive",
+    "Password": "password",
+    "CreatedAt": "2026-10-25T16:05:53.6478713Z"
+  },
+  {
+    "EmployeeId": "EMP019",
+    "Name": "Team Member 19",
+    "Email": "member.19@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-24T16:05:53.6478732Z"
+  },
+  {
+    "EmployeeId": "EMP020",
+    "Name": "Team Member 20",
+    "Email": "member.20@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-23T16:05:53.6478737Z"
+  },
+  {
+    "EmployeeId": "EMP021",
+    "Name": "Team Member 21",
+    "Email": "member.21@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-22T16:05:53.6478754Z"
+  },
+  {
+    "EmployeeId": "EMP022",
+    "Name": "Team Member 22",
+    "Email": "member.22@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-21T16:05:53.6478758Z"
+  },
+  {
+    "EmployeeId": "EMP023",
+    "Name": "Team Member 23",
+    "Email": "member.23@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-20T16:05:53.6478774Z"
+  },
+  {
+    "EmployeeId": "EMP024",
+    "Name": "Team Member 24",
+    "Email": "member.24@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-19T16:05:53.647879Z"
+  },
+  {
+    "EmployeeId": "EMP025",
+    "Name": "Team Member 25",
+    "Email": "member.25@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-18T16:05:53.6478803Z"
+  },
+  {
+    "EmployeeId": "EMP026",
+    "Name": "Team Member 26",
+    "Email": "member.26@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-17T16:05:53.6478808Z"
+  },
+  {
+    "EmployeeId": "EMP027",
+    "Name": "Team Member 27",
+    "Email": "member.27@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Inactive",
+    "Password": "password",
+    "CreatedAt": "2026-10-16T16:05:53.6478812Z"
+  },
+  {
+    "EmployeeId": "EMP028",
+    "Name": "Team Member 28",
+    "Email": "member.28@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-15T16:05:53.6478817Z"
+  },
+  {
+    "EmployeeId": "EMP029",
+    "Name": "Team Member 29",
+    "Email": "member.29@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-14T16:05:53.6478821Z"
+  },
+  {
+    "EmployeeId": "EMP030",
+    "Name": "Team Member 30",
+    "Email": "member.30@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-13T16:05:53.6478831Z"
+  },
+  {
+    "EmployeeId": "EMP031",
+    "Name": "Team Member 31",
+    "Email": "member.31@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-12T16:05:53.6478842Z"
+  },
+  {
+    "EmployeeId": "EMP032",
+    "Name": "Team Member 32",
+    "Email": "member.32@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-11T16:05:53.6478847Z"
+  },
+  {
+    "EmployeeId": "EMP033",
+    "Name": "Team Member 33",
+    "Email": "member.33@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-10T16:05:53.6478851Z"
+  },
+  {
+    "EmployeeId": "EMP034",
+    "Name": "Team Member 34",
+    "Email": "member.34@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-09T16:05:53.6478856Z"
+  },
+  {
+    "EmployeeId": "EMP035",
+    "Name": "Team Member 35",
+    "Email": "member.35@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-08T16:05:53.6478861Z"
+  },
+  {
+    "EmployeeId": "EMP036",
+    "Name": "Team Member 36",
+    "Email": "member.36@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Inactive",
+    "Password": "password",
+    "CreatedAt": "2026-10-07T16:05:53.6478865Z"
+  },
+  {
+    "EmployeeId": "EMP037",
+    "Name": "Team Member 37",
+    "Email": "member.37@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-06T16:05:53.647887Z"
+  },
+  {
+    "EmployeeId": "EMP038",
+    "Name": "Team Member 38",
+    "Email": "member.38@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-05T16:05:53.6478874Z"
+  },
+  {
+    "EmployeeId": "EMP039",
+    "Name": "Team Member 39",
+    "Email": "member.39@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-04T16:05:53.6478879Z"
+  },
+  {
+    "EmployeeId": "EMP040",
+    "Name": "Team Member 40",
+    "Email": "member.40@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-03T16:05:53.6478883Z"
+  },
+  {
+    "EmployeeId": "EMP041",
+    "Name": "Team Member 41",
+    "Email": "member.41@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-02T16:05:53.6478887Z"
+  },
+  {
+    "EmployeeId": "EMP042",
+    "Name": "Team Member 42",
+    "Email": "member.42@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-10-01T16:05:53.6478892Z"
+  },
+  {
+    "EmployeeId": "EMP043",
+    "Name": "Team Member 43",
+    "Email": "member.43@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-30T16:05:53.6478899Z"
+  },
+  {
+    "EmployeeId": "EMP044",
+    "Name": "Team Member 44",
+    "Email": "member.44@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-29T16:05:53.6478904Z"
+  },
+  {
+    "EmployeeId": "EMP045",
+    "Name": "Team Member 45",
+    "Email": "member.45@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Inactive",
+    "Password": "password",
+    "CreatedAt": "2026-09-28T16:05:53.6478921Z"
+  },
+  {
+    "EmployeeId": "EMP046",
+    "Name": "Team Member 46",
+    "Email": "member.46@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-27T16:05:53.6478944Z"
+  },
+  {
+    "EmployeeId": "EMP047",
+    "Name": "Team Member 47",
+    "Email": "member.47@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-26T16:05:53.6478948Z"
+  },
+  {
+    "EmployeeId": "EMP048",
+    "Name": "Team Member 48",
+    "Email": "member.48@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-25T16:05:53.6478952Z"
+  },
+  {
+    "EmployeeId": "EMP049",
+    "Name": "Team Member 49",
+    "Email": "member.49@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-24T16:05:53.6478957Z"
+  },
+  {
+    "EmployeeId": "EMP050",
+    "Name": "Team Member 50",
+    "Email": "member.50@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-23T16:05:53.6478961Z"
+  },
+  {
+    "EmployeeId": "EMP051",
+    "Name": "Team Member 51",
+    "Email": "member.51@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-22T16:05:53.6478965Z"
+  },
+  {
+    "EmployeeId": "EMP052",
+    "Name": "Team Member 52",
+    "Email": "member.52@arcelormittal.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-21T16:05:53.647897Z"
+  },
+  {
+    "EmployeeId": "EMP053",
+    "Name": "Team Member 53",
+    "Email": "member.53@arcelormittal.com",
+    "Role": "Operator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-20T16:05:53.6478974Z"
+  },
+  {
+    "EmployeeId": "EMP054",
+    "Name": "Team Member 54",
+    "Email": "member.54@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Inactive",
+    "Password": "password",
+    "CreatedAt": "2026-09-19T16:05:53.6478978Z"
+  },
+  {
+    "EmployeeId": "EMP055",
+    "Name": "Team Member 55",
+    "Email": "member.55@arcelormittal.com",
+    "Role": "Administrator",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-18T16:05:53.6478983Z"
+  },
+  {
+    "EmployeeId": "EMP056",
+    "Name": "Team Member 56",
+    "Email": "member.56@arcelormittal.com",
+    "Role": "Engineer",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-09-17T16:05:53.6478987Z"
+  }
+]

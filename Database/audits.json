@@ -1,0 +1,398 @@
+[
+  {
+    "Id": "a7c668647c",
+    "DateTimeString": "Nov 13, 2026 01:06",
+    "Timestamp": "2026-11-12T19:36:21.0436206Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "75c78cfed1",
+    "DateTimeString": "Nov 13, 2026 01:06",
+    "Timestamp": "2026-11-12T19:36:19.1612542Z",
+    "User": "Admin User",
+    "Action": "User Logout",
+    "Module": "Authentication",
+    "Details": "User logged out"
+  },
+  {
+    "Id": "cf5dcec3d6",
+    "DateTimeString": "Nov 13, 2026 01:06",
+    "Timestamp": "2026-11-12T19:36:14.5516025Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "f617c2499c",
+    "DateTimeString": "Nov 13, 2026 00:21",
+    "Timestamp": "2026-11-12T18:51:34.5886051Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "e77bca95a8",
+    "DateTimeString": "Nov 13, 2026 00:15",
+    "Timestamp": "2026-11-12T18:45:23.121504Z",
+    "User": "Admin User",
+    "Action": "Deleted User",
+    "Module": "User Management",
+    "Details": "User: sruthi"
+  },
+  {
+    "Id": "5b70f9b6e7",
+    "DateTimeString": "Nov 13, 2026 00:14",
+    "Timestamp": "2026-11-12T18:44:52.3419628Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "667ad4c9da",
+    "DateTimeString": "Nov 13, 2026 00:14",
+    "Timestamp": "2026-11-12T18:44:04.433007Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "6a77847fcc",
+    "DateTimeString": "Nov 13, 2026 00:13",
+    "Timestamp": "2026-11-12T18:43:59.3814074Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "1d7fa81940",
+    "DateTimeString": "Nov 13, 2026 00:12",
+    "Timestamp": "2026-11-12T18:42:24.9657536Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "aud-001",
+    "DateTimeString": "Jun 15, 2025 10:24",
+    "Timestamp": "2025-06-15T10:24:00Z",
+    "User": "Admin User",
+    "Action": "Created User",
+    "Module": "User Management",
+    "Details": "New user: omar.patel"
+  },
+  {
+    "Id": "aud-002",
+    "DateTimeString": "Jun 15, 2025 09:48",
+    "Timestamp": "2025-06-15T09:48:00Z",
+    "User": "Admin User",
+    "Action": "Updated Role",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Modified: Engineer"
+  },
+  {
+    "Id": "aud-003",
+    "DateTimeString": "Jun 14, 2025 17:30",
+    "Timestamp": "2025-06-14T17:30:00Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated inspection threshold"
+  },
+  {
+    "Id": "aud-004",
+    "DateTimeString": "Jun 14, 2025 16:10",
+    "Timestamp": "2025-06-14T16:10:00Z",
+    "User": "Admin User",
+    "Action": "Integration Sync",
+    "Module": "Integration",
+    "Details": "SAP data sync completed"
+  },
+  {
+    "Id": "aud-005",
+    "DateTimeString": "Jun 13, 2025 11:05",
+    "Timestamp": "2025-06-13T11:05:00Z",
+    "User": "Admin User",
+    "Action": "Deleted User",
+    "Module": "User Management",
+    "Details": "User: temp.user@am.com"
+  },
+  {
+    "Id": "aud-006",
+    "DateTimeString": "Jun 13, 2025 09:15",
+    "Timestamp": "2025-06-13T09:15:00Z",
+    "User": "Sarah Rodriguez",
+    "Action": "Tally Verified",
+    "Module": "Digital Tally",
+    "Details": "Verified yard tally sheet #TL-2025-089 (42 pipes verified)"
+  },
+  {
+    "Id": "aud-007",
+    "DateTimeString": "Jun 12, 2025 16:40",
+    "Timestamp": "2025-06-12T16:40:00Z",
+    "User": "Ahmed Khan",
+    "Action": "Inspection Passed",
+    "Module": "Quality \u0026 Inspection",
+    "Details": "Dimensional and ultrasonic test passed for Pipe #P-10482"
+  },
+  {
+    "Id": "aud-008",
+    "DateTimeString": "Jun 12, 2025 14:20",
+    "Timestamp": "2025-06-12T14:20:00Z",
+    "User": "Omar Patel",
+    "Action": "Stock Movement",
+    "Module": "Stock Management",
+    "Details": "Dispatched 24 pipes (Heat #H-4920) to Rig Site Alpha"
+  },
+  {
+    "Id": "aud-009",
+    "DateTimeString": "Jun 11, 2025 15:10",
+    "Timestamp": "2025-06-11T15:10:00Z",
+    "User": "Ahmed Khan",
+    "Action": "Defect Flagged",
+    "Module": "Quality \u0026 Inspection",
+    "Details": "Flagged bevel notch on Pipe #P-10479 - Routed to Rework Bay"
+  },
+  {
+    "Id": "aud-010",
+    "DateTimeString": "Jun 11, 2025 11:30",
+    "Timestamp": "2025-06-11T11:30:00Z",
+    "User": "Sarah Rodriguez",
+    "Action": "Tally Closed",
+    "Module": "Digital Tally",
+    "Details": "Final tally closed and sealed for Rail Shipment #RS-4401"
+  },
+  {
+    "Id": "aud-011",
+    "DateTimeString": "Jun 10, 2025 16:55",
+    "Timestamp": "2025-06-10T16:55:00Z",
+    "User": "Admin User",
+    "Action": "Role Assigned",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Assigned role Supervisor to Sarah Rodriguez (EMP002)"
+  },
+  {
+    "Id": "aud-012",
+    "DateTimeString": "Jun 10, 2025 14:12",
+    "Timestamp": "2025-06-10T14:12:00Z",
+    "User": "Ahmed Khan",
+    "Action": "MTC Verified",
+    "Module": "MTC \u0026 Documents",
+    "Details": "Mill Test Certificate #MTC-8891 approved for API 5L X65 grade"
+  },
+  {
+    "Id": "aud-013",
+    "DateTimeString": "Jun 09, 2025 10:45",
+    "Timestamp": "2025-06-09T10:45:00Z",
+    "User": "Omar Patel",
+    "Action": "Storage Relocation",
+    "Module": "Storage Locations",
+    "Details": "Transferred 18 pipes from Rack B-04 to Staging Area Bay 2"
+  },
+  {
+    "Id": "aud-014",
+    "DateTimeString": "Jun 09, 2025 08:30",
+    "Timestamp": "2025-06-09T08:30:00Z",
+    "User": "Sarah Rodriguez",
+    "Action": "Batch Receipt",
+    "Module": "Pipe Identification",
+    "Details": "Received incoming heat batch #H-5120 from Rolling Mill 2 (60 pipes)"
+  },
+  {
+    "Id": "aud-015",
+    "DateTimeString": "Jun 08, 2025 17:00",
+    "Timestamp": "2025-06-08T17:00:00Z",
+    "User": "Admin User",
+    "Action": "Backup Completed",
+    "Module": "System",
+    "Details": "Automated database snapshot saved to D:\\Backups\\PipeTraceability"
+  },
+  {
+    "Id": "aud-016",
+    "DateTimeString": "Jun 08, 2025 13:25",
+    "Timestamp": "2025-06-08T13:25:00Z",
+    "User": "Admin User",
+    "Action": "Alert Settings Updated",
+    "Module": "Notifications",
+    "Details": "Enabled SMS alert triggers for duplicate pipe detection"
+  },
+  {
+    "Id": "aud-017",
+    "DateTimeString": "Jun 07, 2025 15:40",
+    "Timestamp": "2025-06-07T15:40:00Z",
+    "User": "Ahmed Khan",
+    "Action": "Inspection Passed",
+    "Module": "Quality \u0026 Inspection",
+    "Details": "Full drift and wall thickness check passed for Pipe #P-10410"
+  },
+  {
+    "Id": "aud-018",
+    "DateTimeString": "Jun 07, 2025 11:20",
+    "Timestamp": "2025-06-07T11:20:00Z",
+    "User": "Admin User",
+    "Action": "Rejection Reason Added",
+    "Module": "Inspection \u0026 Quality",
+    "Details": "Added standard defect code: Thread Damage (Active)"
+  },
+  {
+    "Id": "aud-019",
+    "DateTimeString": "Jun 06, 2025 16:15",
+    "Timestamp": "2025-06-06T16:15:00Z",
+    "User": "Omar Patel",
+    "Action": "Physical Stock Count",
+    "Module": "Stock Management",
+    "Details": "Completed weekly yard count: 12,450 pipes reconciled"
+  },
+  {
+    "Id": "aud-020",
+    "DateTimeString": "Jun 06, 2025 10:10",
+    "Timestamp": "2025-06-06T10:10:00Z",
+    "User": "Admin User",
+    "Action": "Permission Modified",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Updated Operator permissions: Granted Rig Operations view access"
+  },
+  {
+    "Id": "aud-021",
+    "DateTimeString": "Jun 05, 2025 14:50",
+    "Timestamp": "2025-06-05T14:50:00Z",
+    "User": "Sarah Rodriguez",
+    "Action": "Tally Created",
+    "Module": "Digital Tally",
+    "Details": "Created new offshore delivery tally #TL-2025-088"
+  },
+  {
+    "Id": "aud-022",
+    "DateTimeString": "Jun 05, 2025 09:30",
+    "Timestamp": "2025-06-05T09:30:00Z",
+    "User": "Admin User",
+    "Action": "Created User",
+    "Module": "User Management",
+    "Details": "New user: Elena Rostova (EMP006) assigned to Engineer"
+  },
+  {
+    "Id": "aud-023",
+    "DateTimeString": "Jun 04, 2025 16:22",
+    "Timestamp": "2025-06-04T16:22:00Z",
+    "User": "Ahmed Khan",
+    "Action": "Calibration Check",
+    "Module": "Quality \u0026 Inspection",
+    "Details": "Ultrasonic gauge US-04 calibration verified within \u002B/- 0.05mm"
+  },
+  {
+    "Id": "aud-024",
+    "DateTimeString": "Jun 04, 2025 11:45",
+    "Timestamp": "2025-06-04T11:45:00Z",
+    "User": "Admin User",
+    "Action": "Password Reset",
+    "Module": "User Management",
+    "Details": "Password reset token generated for Marcus Vance (EMP005)"
+  },
+  {
+    "Id": "aud-025",
+    "DateTimeString": "Jun 03, 2025 15:10",
+    "Timestamp": "2025-06-03T15:10:00Z",
+    "User": "Omar Patel",
+    "Action": "Pipe Scanning",
+    "Module": "Pipe Identification",
+    "Details": "Scanned and registered 30 casing pipes with 2D DataMatrix tags"
+  },
+  {
+    "Id": "aud-026",
+    "DateTimeString": "Jun 03, 2025 08:45",
+    "Timestamp": "2025-06-03T08:45:00Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "Admin User logged in from terminal 192.168.1.10"
+  },
+  {
+    "Id": "aud-027",
+    "DateTimeString": "Jun 02, 2025 17:00",
+    "Timestamp": "2025-06-02T17:00:00Z",
+    "User": "Admin User",
+    "Action": "Backup Completed",
+    "Module": "System",
+    "Details": "System backup archive generated (Size: 420 MB)"
+  },
+  {
+    "Id": "aud-028",
+    "DateTimeString": "Jun 02, 2025 13:15",
+    "Timestamp": "2025-06-02T13:15:00Z",
+    "User": "Sarah Rodriguez",
+    "Action": "Dispatch Confirmed",
+    "Module": "Rig Operations",
+    "Details": "Rig delivery manifest confirmed for Wellbore #WB-109"
+  },
+  {
+    "Id": "aud-029",
+    "DateTimeString": "Jun 01, 2025 10:00",
+    "Timestamp": "2025-06-01T10:00:00Z",
+    "User": "Admin User",
+    "Action": "System Initialized",
+    "Module": "System",
+    "Details": "Pipe Traceability Web Portal v1.0.0 production deployment started"
+  },
+  {
+    "Id": "aud-030",
+    "DateTimeString": "Nov 12, 2026 23:55",
+    "Timestamp": "2026-11-12T23:55:00Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "Application Settings",
+    "Details": "Updated Pipe Configuration: Prefix P-, Joint Start 1, Connection API"
+  },
+  {
+    "Id": "aud-031",
+    "DateTimeString": "Nov 12, 2026 23:40",
+    "Timestamp": "2026-11-12T23:40:00Z",
+    "User": "Admin User",
+    "Action": "Updated Role",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Confirmed Administrator, Engineer, Supervisor, Operator role matrix"
+  },
+  {
+    "Id": "aud-032",
+    "DateTimeString": "Nov 12, 2026 23:15",
+    "Timestamp": "2026-11-12T23:15:00Z",
+    "User": "Ahmed Khan",
+    "Action": "Inspection Passed",
+    "Module": "Quality \u0026 Inspection",
+    "Details": "Full dimensional inspection passed for 28 ERW casing pipes"
+  },
+  {
+    "Id": "aud-033",
+    "DateTimeString": "Nov 12, 2026 22:50",
+    "Timestamp": "2026-11-12T22:50:00Z",
+    "User": "Sarah Rodriguez",
+    "Action": "Tally Verified",
+    "Module": "Digital Tally",
+    "Details": "Verified yard tally sheet #TL-2026-112 (50 pipes verified)"
+  },
+  {
+    "Id": "aud-034",
+    "DateTimeString": "Nov 12, 2026 22:10",
+    "Timestamp": "2026-11-12T22:10:00Z",
+    "User": "Omar Patel",
+    "Action": "Stock Movement",
+    "Module": "Stock Management",
+    "Details": "Transferred 30 pipes from Bay 3 to Bay 1"
+  },
+  {
+    "Id": "aud-035",
+    "DateTimeString": "Nov 12, 2026 21:00",
+    "Timestamp": "2026-11-12T21:00:00Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User Admin User logged in successfully"
+  }
+]

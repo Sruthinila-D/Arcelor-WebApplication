@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcelorMittal - Pipe Traceability Web Portal</title>
+  <link rel="stylesheet" href="/css/portal.css">
+  <link rel="icon" href="/images/logo.png" type="image/png">
+</head>
+<body>
+
+  <!-- ========================================================= -->
+  <!-- TOP NAVBAR                                                -->
+  <!-- ========================================================= -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <a href="#" onclick="switchView('dashboard'); return false;" class="brand-logo-wrap">
+        <img src="/images/logo.png" alt="ArcelorMittal" class="brand-logo-img">
+      </a>
+      <div class="brand-divider"></div>
+      <div class="brand-title-wrap">
+        <span class="portal-title">Pipe Traceability</span>
+        <span class="portal-subtitle">Web Portal</span>
+      </div>
+    </div>
+
+    <div class="top-navbar-right">
+      <!-- Notification Icon Button -->
+      <div id="notificationBtnWrap" style="position: relative;">
+        <button class="nav-icon-btn" onclick="toggleNotificationDropdown()" title="System Alerts">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="nav-badge-dot"></span>
+        </button>
+
+        <div id="notificationDropdownMenu" class="dropdown-menu-card" style="width: 280px;">
+          <div style="padding: 10px 14px; font-weight: 700; font-size: 13px; border-bottom: 1px solid #E2E8F0;">
+            Notifications
+          </div>
+          <div class="dropdown-menu-item" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+            <div style="font-weight: 600; font-size: 12px; color: #0F172A;">SAP Sync Completed</div>
+            <div style="font-size: 11px; color: #64748B;">450 pipe records updated from Yard B</div>
+          </div>
+          <div class="dropdown-menu-item" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+            <div style="font-weight: 600; font-size: 12px; color: #0F172A;">Inspection Alert</div>
+            <div style="font-size: 11px; color: #64748B;">Batch #B-902 Passed API Spec 5L test</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Help Icon Button -->
+      <button class="nav-icon-btn" onclick="openHelpModal()" title="Help & System Info">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+      </button>
+
+      <!-- User Profile Badge -->
+      <div class="user-profile-widget" onclick="toggleProfileDropdown()">
+        <div class="user-avatar-circle">AD</div>
+        <div class="user-meta-wrap">
+          <span id="currentUserName" class="user-name-text">Admin User</span>
+          <span id="currentUserRole" class="user-role-text">Administrator</span>
+        </div>
+
+        <!-- Profile Dropdown -->
+        <div id="profileDropdownMenu" class="dropdown-menu-card">
+          <div style="padding: 12px 16px; border-bottom: 1px solid #E2E8F0;">
+            <div style="font-weight: 700; font-size: 13px; color: #0F172A;">Admin User</div>
+            <div style="font-size: 11px; color: #64748B;">admin@arcelormittal.com</div>
+          </div>
+          <a class="dropdown-menu-item" href="#" onclick="switchView('settings'); return false;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            System Settings
+          </a>
+          <a class="dropdown-menu-item" href="#" onclick="switchView('audits'); return false;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Audit Trail
+          </a>
+          <div class="dropdown-menu-divider"></div>
+          <a class="dropdown-menu-item" href="#" onclick="handleLogout(); return false;" style="color: #EF4444;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            Sign Out
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================= -->
+  <!-- APP CONTAINER: SIDEBAR + MAIN VIEWPORT                    -->
+  <!-- ========================================================= -->
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <a href="#" class="sidebar-nav-item active" data-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Admin Dashboard</span>
+      </a>
+
+      <a href="#" class="sidebar-nav-item" data-target="users">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <span>User Management</span>
+      </a>
+
+      <a href="#" class="sidebar-nav-item" data-target="roles">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span>Role & Permissions</span>
+      </a>
+
+      <a href="#" class="sidebar-nav-item" data-target="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Application Settings</span>
+      </a>
+
+      <a href="#" class="sidebar-nav-item" data-target="audits">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span>Audit & Activity</span>
+      </a>
+    </aside>
+
+    <!-- MAIN VIEWPORT -->
+    <main class="main-viewport">
+
+      <!-- ========================================================= -->
+      <!-- SCREEN 1: ADMIN DASHBOARD                                 -->
+      <!-- ========================================================= -->
+      <section id="view-dashboard" class="view-screen" style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Page Header -->
+        <div class="page-header-row">
+          <div class="page-title-block">
+            <h1>Admin Dashboard</h1>
+            <p>System administration and operational overview</p>
+          </div>
+
+          <!-- Functional Date Range Filter Component -->
+          <div class="date-filter-wrap">
+            <button class="date-filter-btn" onclick="toggleDatePopover('dashboard')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span id="dashboardDateLabel">Jun 01, 2025 - Jun 15, 2025</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+
+            <!-- Popover -->
+            <div id="dashboardDatePopover" class="date-picker-popover">
+              <div style="font-weight: 700; font-size: 13px; color: #0F172A;">Filter Date Range</div>
+              
+              <div class="date-presets-row">
+                <button type="button" class="preset-chip active" onclick="applyDatePreset('dashboard', '2025-06-01', '2025-06-15', 'Jun 01, 2025 - Jun 15, 2025', this)">Jun 01 - Jun 15 (Default)</button>
+                <button type="button" class="preset-chip" onclick="applyDatePreset('dashboard', '2025-06-01', '2025-06-07', 'Jun 01, 2025 - Jun 07, 2025', this)">Week 1 (Jun 01 - 07)</button>
+                <button type="button" class="preset-chip" onclick="applyDatePreset('dashboard', '2025-06-08', '2025-06-15', 'Jun 08, 2025 - Jun 15, 2025', this)">Week 2 (Jun 08 - 15)</button>
+                <button type="button" class="preset-chip" onclick="applyDatePreset('dashboard', '', '', 'Full Dataset (All Dates)', this)">All Dates</button>
+              </div>
+
+              <div class="date-inputs-grid">
+                <div class="date-input-field">
+                  <label>Start Date</label>
+                  <input type="date" id="dashStartInput" class="date-native-input" value="2025-06-01">
+                </div>
+                <div class="date-input-field">
+                  <label>End Date</label>
+                  <input type="date" id="dashEndInput" class="date-native-input" value="2025-06-15">
+                </div>
+              </div>
+
+              <div class="date-popover-actions">
+                <button type="button" class="btn btn-outline btn-sm" onclick="resetDateFilter('dashboard')">Reset</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="applyCustomDateFilter('dashboard')">Apply Range</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 KPI Metric Cards Row -->
+        <div class="kpi-row">
+          <!-- Total Pipes -->
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap" style="background-color: #EEF2F6; color: #1E293B;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            </div>
+            <div class="kpi-data-wrap">
+              <div id="kpiTotalPipes" class="kpi-value">12,450</div>
+              <div class="kpi-label">Total Pipes</div>
+            </div>
+          </div>
+
+          <!-- Available -->
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap" style="background-color: #E6F4EA; color: #137333;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div class="kpi-data-wrap">
+              <div id="kpiAvailable" class="kpi-value">8,200</div>
+              <div class="kpi-label">Available</div>
+            </div>
+          </div>
+
+          <!-- In Transit -->
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap" style="background-color: #FEF7E0; color: #B06000;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            </div>
+            <div class="kpi-data-wrap">
+              <div id="kpiInTransit" class="kpi-value">320</div>
+              <div class="kpi-label">In Transit</div>
+            </div>
+          </div>
+
+          <!-- Inspections -->
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap" style="background-color: #FFF3EB; color: #F15A24;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            </div>
+            <div class="kpi-data-wrap">
+              <div id="kpiInspections" class="kpi-value">1,236</div>
+              <div class="kpi-label">Inspections</div>
+            </div>
+          </div>
+
+          <!-- Passed -->
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap" style="background-color: #E6F9F0; color: #0E9F6E;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <div class="kpi-data-wrap">
+              <div id="kpiPassed" class="kpi-value">1,091</div>
+              <div class="kpi-label">Passed</div>
+            </div>
+          </div>
+
+          <!-- Rejected -->
+          <div class="kpi-card">
+            <div class="kpi-icon-wrap" style="background-color: #FDE8E8; color: #E02424;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            </div>
+            <div class="kpi-data-wrap">
+              <div id="kpiRejected" class="kpi-value">28</div>
+              <div class="kpi-label">Rejected</div>
+            </div>
+          </div>
+
+          <!-- Users -->
+          <div class="kpi-card" style="cursor: pointer;" onclick="switchView('users')">
+            <div class="kpi-icon-wrap" style="background-color: #EBF5FF; color: #1C64F2;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="kpi-data-wrap">
+              <div id="kpiUsers" class="kpi-value">56</div>
+              <div class="kpi-label">Users</div>
+            </div>
+          </div>
+
+          <!-- Roles (4 Roles: Admin, Engineer, Supervisor, Operator) -->
+          <div class="kpi-card" style="cursor: pointer;" onclick="switchView('roles')">
+            <div class="kpi-icon-wrap" style="background-color: #F3E8FF; color: #9061F9;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <div class="kpi-data-wrap">
+              <div id="kpiRoles" class="kpi-value">4</div>
+              <div class="kpi-label">Roles</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Visual Row 1: Stock Distribution + Inspection Trend -->
+        <div class="dashboard-grid-row">
+          <!-- Donut Card -->
+          <div class="card chart-card">
+            <div class="chart-card-header">
+              <div class="chart-card-title">Stock Distribution</div>
+            </div>
+            <div class="donut-chart-container">
+              <div id="donutSvgWrap" class="donut-svg-wrap"></div>
+              <div id="donutLegendList" class="donut-legend-list"></div>
+            </div>
+          </div>
+
+          <!-- Area Trend Card -->
+          <div class="card chart-card">
+            <div class="chart-card-header">
+              <div class="chart-card-title">Inspection Trend</div>
+              <div>
+                <select id="trendMetricSelect" class="chart-filter-select" onchange="handleTrendMetricChange()">
+                  <option value="Inspections">Inspections</option>
+                  <option value="Passed">Passed</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </div>
+            </div>
+            <div class="trend-svg-container">
+              <svg id="trendChartSvg"></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Visual Row 2: Production by Grade + Yard Bay Capacity -->
+        <div class="dashboard-grid-row" style="grid-template-columns: 5.4fr 4.6fr;">
+          <!-- Chart 3: Production & Dispatch by Grade -->
+          <div class="card chart-card">
+            <div class="chart-card-header">
+              <div>
+                <div class="chart-card-title">Production & Dispatch by Pipe Grade</div>
+                <div style="font-size: 11.5px; color: #64748B; margin-top: 2px;">Volume comparison across prime casing & line pipe specs</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <select id="gradeCategoryFilter" class="chart-filter-select" onchange="renderGradeBarChart()">
+                  <option value="all">All Pipe Grades</option>
+                  <option value="casing">Casing & Tubing</option>
+                  <option value="linepipe">Line Pipe</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="chart-legend-row">
+              <span><span class="legend-dot" style="background-color: #0B192C;"></span>Produced (MT)</span>
+              <span><span class="legend-dot" style="background-color: #F15A24;"></span>Dispatched (MT)</span>
+            </div>
+
+            <div class="bar-chart-container">
+              <svg id="gradeBarChartSvg" viewBox="0 0 520 230" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 230px;"></svg>
+            </div>
+          </div>
+
+          <!-- Chart 4: Storage Yard & Bay Capacity -->
+          <div class="card chart-card">
+            <div class="chart-card-header">
+              <div>
+                <div class="chart-card-title">Yard Storage & Bay Capacity</div>
+                <div style="font-size: 11.5px; color: #64748B; margin-top: 2px;">Real-time pipe storage rack occupancy</div>
+              </div>
+              <span class="badge badge-active" style="background: #EBF5FF; color: #1E40AF; font-size: 11.5px; font-weight: 700; padding: 4px 10px;">76.8% Utilized</span>
+            </div>
+
+            <div class="yard-bays-list" id="yardBaysContainer">
+              <!-- Rendered dynamically by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SCREEN 2: USER MANAGEMENT                                 -->
+      <!-- ========================================================= -->
+      <section id="view-users" class="view-screen" style="display: none; flex-direction: column; gap: 20px;">
+        <div class="page-header-row">
+          <div class="page-title-block">
+            <h1>User Management</h1>
+            <p>Create, manage, and assign roles to users</p>
+          </div>
+          <div>
+            <!-- Exactly 1 + symbol on Add User button -->
+            <button class="btn btn-primary" onclick="openAddUserModal()">Add User</button>
+          </div>
+        </div>
+
+        <!-- Filter and Search Toolbar -->
+        <div class="card">
+          <div class="table-toolbar">
+            <div class="search-input-wrap">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="userSearchInput" placeholder="Search by Name, Email or Employee ID" oninput="usersState.page = 1; loadUsers()">
+            </div>
+
+            <div class="table-filters-group">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 12px; color: #64748B; font-weight: 600;">Status</span>
+                <select id="userStatusFilter" class="filter-select" onchange="usersState.page = 1; loadUsers()">
+                  <option value="All">All</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 12px; color: #64748B; font-weight: 600;">Role</span>
+                <select id="userRoleFilter" class="filter-select" onchange="usersState.page = 1; loadUsers()">
+                  <option value="All">All</option>
+                  <option value="Administrator">Administrator</option>
+                  <option value="Engineer">Engineer</option>
+                  <option value="Supervisor">Supervisor</option>
+                  <option value="Operator">Operator</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Table -->
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px;"><input type="checkbox" class="custom-checkbox" onchange="toggleSelectAllUsers(this)"></th>
+                  <th>Employee ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th style="width: 80px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody"></tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div class="table-footer">
+            <div id="usersPaginationInfo">Showing 1 - 5 of 56 users</div>
+            <div id="usersPaginationControls" class="pagination-controls"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SCREEN 3: ROLE & PERMISSIONS                              -->
+      <!-- ========================================================= -->
+      <section id="view-roles" class="view-screen" style="display: none; flex-direction: column; gap: 20px;">
+        <div class="page-header-row">
+          <div class="page-title-block">
+            <h1>Role & Permissions</h1>
+            <p>Define roles and assign module permissions</p>
+          </div>
+          <div>
+            <!-- Exactly 1 + symbol on Add Role button -->
+            <button class="btn btn-primary" onclick="openAddRoleModal()">+ Add Role</button>
+          </div>
+        </div>
+
+        <!-- Subtabs -->
+        <div class="sub-tabs-bar">
+          <button class="sub-tab-btn active">Roles</button>
+          <button class="sub-tab-btn" onclick="switchView('permissions')">Permissions</button>
+        </div>
+
+        <div class="card">
+          <div class="table-toolbar">
+            <div class="search-input-wrap">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="roleSearchInput" placeholder="Search by Role Name" oninput="loadRoles()">
+            </div>
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Role Name</th>
+                  <th>Description</th>
+                  <th>Users</th>
+                  <th>Status</th>
+                  <th style="width: 100px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="rolesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SCREEN 4: PERMISSION MATRIX                               -->
+      <!-- ========================================================= -->
+      <section id="view-permissions" class="view-screen" style="display: none; flex-direction: column; gap: 20px;">
+        <div class="page-header-row">
+          <div class="page-title-block">
+            <h1>Permission Matrix</h1>
+            <p>Configure module-level permissions for roles</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-outline btn-sm" onclick="switchView('roles')">&larr; Back to Roles</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- Role selector toolbar (Only 4 core roles) -->
+          <div class="permission-matrix-header">
+            <span class="role-selector-label">Select Role:</span>
+            <select id="roleMatrixSelector" class="filter-select" style="min-width: 180px; font-weight: 600;" onchange="handleRoleMatrixChange()">
+              <option value="Administrator">Administrator</option>
+              <option value="Engineer" selected>Engineer</option>
+              <option value="Supervisor">Supervisor</option>
+              <option value="Operator">Operator</option>
+            </select>
+          </div>
+
+          <!-- Matrix Table -->
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Module / Permission</th>
+                  <th style="text-align: center; width: 110px;">View</th>
+                  <th style="text-align: center; width: 110px;">Create</th>
+                  <th style="text-align: center; width: 110px;">Edit</th>
+                  <th style="text-align: center; width: 110px;">Delete</th>
+                  <th style="text-align: center; width: 110px;">Approve</th>
+                </tr>
+              </thead>
+              <tbody id="permissionMatrixTbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Matrix Footer Buttons -->
+          <div class="matrix-action-footer">
+            <button class="btn btn-outline" onclick="cancelPermissionChanges()">Cancel</button>
+            <button class="btn btn-primary" onclick="savePermissionMatrix()">Save Changes</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SCREEN 5: APPLICATION SETTINGS                            -->
+      <!-- ========================================================= -->
+      <section id="view-settings" class="view-screen" style="display: none; flex-direction: column; gap: 20px;">
+        <div class="page-header-row">
+          <div class="page-title-block">
+            <h1>Application Settings</h1>
+            <p>Manage system configurations and reference data</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- Tabs Header -->
+          <div class="settings-tabs-header">
+            <button class="settings-tab-pill active" onclick="switchSettingsSubTab('General', this)">General</button>
+            <button class="settings-tab-pill" onclick="switchSettingsSubTab('Pipe & Tally', this)">Pipe & Tally</button>
+            <button class="settings-tab-pill" onclick="switchSettingsSubTab('Inspection & Quality', this)">Inspection & Quality</button>
+            <button class="settings-tab-pill" onclick="switchSettingsSubTab('Notifications', this)">Notifications</button>
+            <button class="settings-tab-pill" onclick="switchSettingsSubTab('System', this)">System</button>
+          </div>
+
+          <!-- TAB 1: General Tab Body -->
+          <div id="settingsGeneralContent" class="settings-body-grid">
+            <!-- Left Column: Form Dropdowns -->
+            <div>
+              <div class="form-group-item">
+                <label class="form-label">Company Name</label>
+                <input type="text" id="settCompanyName" class="form-control" value="ArcelorMittal Tubular Products">
+              </div>
+
+              <div class="form-group-item">
+                <label class="form-label">Default Unit</label>
+                <select id="settDefaultUnit" class="form-control">
+                  <option value="Metric (m, mm, kg)">Metric (m, mm, kg)</option>
+                  <option value="Imperial (ft, in, lbs)">Imperial (ft, in, lbs)</option>
+                  <option value="Custom Standard">Custom Standard</option>
+                </select>
+              </div>
+
+              <div class="form-group-item">
+                <label class="form-label">Date Format</label>
+                <select id="settDateFormat" class="form-control">
+                  <option value="DD-MMM-YYYY">DD-MMM-YYYY</option>
+                  <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                  <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                </select>
+              </div>
+
+              <div class="form-group-item">
+                <label class="form-label">Time Zone</label>
+                <select id="settTimeZone" class="form-control">
+                  <option value="(GMT+04:00) Abu Dhabi">(GMT+04:00) Abu Dhabi</option>
+                  <option value="(GMT+01:00) Paris, Brussels">(GMT+01:00) Paris, Brussels</option>
+                  <option value="(GMT+05:30) Mumbai, New Delhi">(GMT+05:30) Mumbai, New Delhi</option>
+                  <option value="(GMT-05:00) Eastern Time (US)">(GMT-05:00) Eastern Time (US)</option>
+                </select>
+              </div>
+
+              <div class="form-group-item">
+                <label class="form-label">Session Timeout (minutes)</label>
+                <select id="settSessionTimeout" class="form-control">
+                  <option value="15">15</option>
+                  <option value="30" selected>30</option>
+                  <option value="60">60</option>
+                  <option value="120">120</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Right Column: Orange Toggle Switches -->
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+              <div class="toggle-item-row">
+                <span class="toggle-label">Enable Mix Warning</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggleMixWarning" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="toggle-item-row">
+                <span class="toggle-label">Enable Duplicate Pipe Check</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggleDuplicatePipe" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="toggle-item-row">
+                <span class="toggle-label">Enable Rejection Reasons</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggleRejectionReasons" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="toggle-item-row">
+                <span class="toggle-label">Enable Stock Count Upload</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggleStockUpload" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="toggle-item-row">
+                <span class="toggle-label">Enable Audit Trail</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggleAuditTrail" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: Pipe & Tally Tab Body -->
+          <div id="settingsPipeTallyContent" class="settings-tab-pane" style="display: none;">
+            <div class="settings-grid-2col">
+              <!-- Left Card: Pipe Configuration -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">Pipe Configuration</h3>
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Pipe ID Prefix</label>
+                  <input type="text" id="settPipeIdPrefix" class="form-control" value="P-">
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Joint Number Start</label>
+                  <input type="number" id="settJointNumberStart" class="form-control" value="1" min="1">
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Default Connection Type</label>
+                  <select id="settDefaultConnectionType" class="form-control">
+                    <option value="API" selected>API</option>
+                    <option value="Premium">Premium</option>
+                    <option value="Semi-Premium">Semi-Premium</option>
+                    <option value="Flush Joint">Flush Joint</option>
+                  </select>
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Default Drift Type</label>
+                  <select id="settDefaultDriftType" class="form-control">
+                    <option value="Full Drift" selected>Full Drift</option>
+                    <option value="Special Drift">Special Drift</option>
+                    <option value="Cylindrical Drift">Cylindrical Drift</option>
+                  </select>
+                </div>
+                <div class="form-group-item" style="margin-bottom: 0;">
+                  <label class="form-label">Effective Length Unit</label>
+                  <select id="settEffectiveLengthUnit" class="form-control">
+                    <option value="m (Meter)" selected>m (Meter)</option>
+                    <option value="ft (Feet)">ft (Feet)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Right Card: Tally Configuration -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">Tally Configuration</h3>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%;">
+                  <div class="toggle-item-row">
+                    <span class="toggle-label">Allow Tally Creation</span>
+                    <label class="switch">
+                      <input type="checkbox" id="toggleAllowTallyCreation" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                  <div class="toggle-item-row">
+                    <span class="toggle-label">Allow Tally Editing</span>
+                    <label class="switch">
+                      <input type="checkbox" id="toggleAllowTallyEditing" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                  <div class="toggle-item-row">
+                    <span class="toggle-label">Enforce Unique Pipe in Tally</span>
+                    <label class="switch">
+                      <input type="checkbox" id="toggleEnforceUniquePipe" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                  <div class="toggle-item-row">
+                    <span class="toggle-label">Auto-Generate Joint Sequence</span>
+                    <label class="switch">
+                      <input type="checkbox" id="toggleAutoSequence" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                  <div class="toggle-item-row" style="border-bottom: none;">
+                    <span class="toggle-label">Allow Tally Closure</span>
+                    <label class="switch">
+                      <input type="checkbox" id="toggleAllowTallyClosure" checked>
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: Inspection & Quality Tab Body -->
+          <div id="settingsInspectionContent" class="settings-tab-pane" style="display: none;">
+            <div class="settings-grid-2col">
+              <!-- Left Card: Inspection Rules -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">Inspection Rules</h3>
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Inspection Threshold (mm)</label>
+                  <input type="number" step="0.01" id="settInspectionThreshold" class="form-control" value="0.25">
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Default Inspection Type</label>
+                  <select id="settDefaultInspectionType" class="form-control">
+                    <option value="Dimensional" selected>Dimensional</option>
+                    <option value="Visual">Visual</option>
+                    <option value="Ultrasonic (UT)">Ultrasonic (UT)</option>
+                    <option value="Magnetic Particle (MPI)">Magnetic Particle (MPI)</option>
+                  </select>
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Max Rework Attempts</label>
+                  <input type="number" id="settMaxReworkAttempts" class="form-control" value="2" min="1" max="10">
+                </div>
+                <div class="form-group-item" style="margin-bottom: 0;">
+                  <label class="form-label">Inspection Validity (days)</label>
+                  <input type="number" id="settInspectionValidity" class="form-control" value="180" min="30" max="365">
+                </div>
+              </div>
+
+              <!-- Right Card: Rejection Reasons -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">Rejection Reasons</h3>
+                  <button class="btn btn-primary" style="padding: 6px 14px; font-size: 12px; height: auto;" onclick="openAddRejectionReasonModal()">+ Add Reason</button>
+                </div>
+                <div style="overflow-x: auto;">
+                  <table class="settings-table">
+                    <thead>
+                      <tr>
+                        <th style="width: 50%;">Rejection Reason</th>
+                        <th style="width: 25%;">Status</th>
+                        <th style="width: 25%; text-align: center;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="rejectionReasonsTableBody">
+                      <!-- Rendered dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: Notifications Tab Body -->
+          <div id="settingsNotificationsContent" class="settings-tab-pane" style="display: none;">
+            <div class="settings-grid-2col">
+              <!-- Left Card: Alert Configuration -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">Alert Configuration</h3>
+                </div>
+                <div style="overflow-x: auto;">
+                  <table class="settings-table">
+                    <thead>
+                      <tr>
+                        <th style="width: 55%;">Notification Type</th>
+                        <th style="width: 15%; text-align: center;">In-App</th>
+                        <th style="width: 15%; text-align: center;">Email</th>
+                        <th style="width: 15%; text-align: center;">SMS</th>
+                      </tr>
+                    </thead>
+                    <tbody id="alertConfigTableBody">
+                      <!-- Rendered dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Right Card: Notification Settings -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">Notification Settings</h3>
+                </div>
+                <div class="toggle-item-row" style="padding-top: 0;">
+                  <span class="toggle-label">Enable Notifications</span>
+                  <label class="switch">
+                    <input type="checkbox" id="toggleEnableNotifications" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="form-group-item" style="margin-top: 14px;">
+                  <label class="form-label">Notification Frequency</label>
+                  <select id="settNotificationFrequency" class="form-control">
+                    <option value="Real-time" selected>Real-time</option>
+                    <option value="Hourly Summary">Hourly Summary</option>
+                    <option value="Daily Digest">Daily Digest</option>
+                  </select>
+                </div>
+                <div class="toggle-item-row">
+                  <span class="toggle-label">Daily Summary Email</span>
+                  <label class="switch">
+                    <input type="checkbox" id="toggleDailySummaryEmail" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="form-group-item" style="margin-top: 14px; margin-bottom: 0;">
+                  <label class="form-label">Recipients (Admin)</label>
+                  <input type="email" id="settRecipientsAdmin" class="form-control" value="admin@arcelormittal.com">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 5: System Tab Body (3-Column Layout) -->
+          <div id="settingsSystemContent" class="settings-tab-pane" style="display: none;">
+            <div class="settings-grid-3col">
+              <!-- Card 1: System Information -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">System Information</h3>
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Application Version</label>
+                  <input type="text" id="settAppVersion" class="form-control" value="v1.0.0" readonly style="background-color: #F8FAFC; cursor: not-allowed; color: #475569;">
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Environment</label>
+                  <select id="settEnvironment" class="form-control">
+                    <option value="Production" selected>Production</option>
+                    <option value="Staging">Staging</option>
+                    <option value="Development">Development</option>
+                  </select>
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">System Name</label>
+                  <input type="text" id="settSystemName" class="form-control" value="Pipe Traceability Web Portal">
+                </div>
+                <div class="form-group-item" style="margin-bottom: 0;">
+                  <label class="form-label">Last Updated</label>
+                  <input type="text" id="settLastUpdated" class="form-control" value="Jun 15, 2025 10:24" readonly style="background-color: #F8FAFC; cursor: not-allowed; color: #475569;">
+                </div>
+              </div>
+
+              <!-- Card 2: Backup & Retention -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">Backup & Retention</h3>
+                </div>
+                <div class="toggle-item-row" style="padding-top: 0;">
+                  <span class="toggle-label">Enable Auto Backup</span>
+                  <label class="switch">
+                    <input type="checkbox" id="toggleEnableAutoBackup" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="form-group-item" style="margin-top: 14px;">
+                  <label class="form-label">Backup Frequency</label>
+                  <select id="settBackupFrequency" class="form-control">
+                    <option value="Daily" selected>Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                  </select>
+                </div>
+                <div class="form-group-item">
+                  <label class="form-label">Retention Period (days)</label>
+                  <input type="number" id="settRetentionPeriod" class="form-control" value="90" min="7" max="365">
+                </div>
+                <div class="form-group-item" style="margin-bottom: 0;">
+                  <label class="form-label">Backup Location</label>
+                  <input type="text" id="settBackupLocation" class="form-control" value="D:\Backups\PipeTraceability">
+                </div>
+              </div>
+
+              <!-- Card 3: Security & Integration -->
+              <div class="settings-card-panel">
+                <div class="settings-panel-header">
+                  <h3 class="settings-panel-title">Security & Integration</h3>
+                </div>
+                <div class="toggle-item-row" style="padding-top: 0;">
+                  <span class="toggle-label">Enable MFA (Multi-Factor Authentication)</span>
+                  <label class="switch">
+                    <input type="checkbox" id="toggleEnableMfa" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="toggle-item-row">
+                  <span class="toggle-label">Enable SSO (Single Sign-On)</span>
+                  <label class="switch">
+                    <input type="checkbox" id="toggleEnableSso">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="toggle-item-row">
+                  <span class="toggle-label">ERP Integration (API)</span>
+                  <label class="switch">
+                    <input type="checkbox" id="toggleErpIntegration" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="toggle-item-row">
+                  <span class="toggle-label">Data Warehouse Integration</span>
+                  <label class="switch">
+                    <input type="checkbox" id="toggleDataWarehouse" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="form-group-item" style="margin-top: 14px; margin-bottom: 0;">
+                  <label class="form-label">Log Retention (days)</label>
+                  <select id="settLogRetention" class="form-control">
+                    <option value="90">90</option>
+                    <option value="180">180</option>
+                    <option value="365" selected>365</option>
+                    <option value="730">730</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Buttons -->
+          <div class="settings-action-footer">
+            <button class="btn btn-outline" onclick="resetSettings()">Reset</button>
+            <button class="btn btn-primary" onclick="saveSettings()">Save</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SCREEN 6: AUDIT & ACTIVITY                                -->
+      <!-- ========================================================= -->
+      <section id="view-audits" class="view-screen" style="display: none; flex-direction: column; gap: 20px;">
+        <div class="page-header-row">
+          <div class="page-title-block">
+            <h1>Audit & Activity</h1>
+            <p>View user activities, changes and system logs</p>
+          </div>
+          <div>
+            <button class="btn btn-outline" onclick="exportAuditsCsv()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-toolbar">
+            <div class="search-input-wrap" style="width: 360px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="auditSearchInput" placeholder="Search by User, Action or Module" oninput="auditsState.page = 1; loadAudits()">
+            </div>
+
+            <!-- Functional Date Range Filter Component for Audits -->
+            <div class="date-filter-wrap">
+              <button class="date-filter-btn" onclick="toggleDatePopover('audits')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span id="auditsDateLabel">Jun 01, 2025 - Jun 15, 2025</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+
+              <!-- Popover -->
+              <div id="auditsDatePopover" class="date-picker-popover">
+                <div style="font-weight: 700; font-size: 13px; color: #0F172A;">Filter Activity History</div>
+                
+                <div class="date-presets-row">
+                  <button type="button" class="preset-chip active" onclick="applyDatePreset('audits', '2025-06-01', '2025-06-15', 'Jun 01, 2025 - Jun 15, 2025', this)">Jun 01 - Jun 15 (Default)</button>
+                  <button type="button" class="preset-chip" onclick="applyDatePreset('audits', '2025-06-10', '2025-06-15', 'Jun 10, 2025 - Jun 15, 2025', this)">Last 5 Days</button>
+                  <button type="button" class="preset-chip" onclick="applyDatePreset('audits', '', '', 'All Records (History)', this)">All History</button>
+                </div>
+
+                <div class="date-inputs-grid">
+                  <div class="date-input-field">
+                    <label>Start Date</label>
+                    <input type="date" id="auditStartInput" class="date-native-input" value="2025-06-01">
+                  </div>
+                  <div class="date-input-field">
+                    <label>End Date</label>
+                    <input type="date" id="auditEndInput" class="date-native-input" value="2025-06-15">
+                  </div>
+                </div>
+
+                <div class="date-popover-actions">
+                  <button type="button" class="btn btn-outline btn-sm" onclick="resetDateFilter('audits')">Reset</button>
+                  <button type="button" class="btn btn-primary btn-sm" onclick="applyCustomDateFilter('audits')">Apply Range</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 150px;">Date & Time</th>
+                  <th>User</th>
+                  <th>Action</th>
+                  <th>Module</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="auditsTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <div id="auditsPaginationInfo">Showing 1 - 5 of 128 records</div>
+            <div id="auditsPaginationControls" class="pagination-controls"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODALS                                                    -->
+  <!-- ========================================================= -->
+
+  <!-- Add/Edit User Modal (Only 4 core roles) -->
+  <div id="userModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="userModalTitle" class="modal-title">Add New User</h3>
+        <button class="modal-close-btn" onclick="closeUserModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group-item">
+          <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+            <span>Employee ID</span>
+            <span style="font-size: 11px; color: #64748B; font-weight: normal;"></span>
+          </label>
+          <input type="text" id="userModalEmpId" class="form-control" placeholder="EMP057" readonly style="background-color: #F8FAFC; cursor: not-allowed; color: #475569; font-weight: 600;">
+        </div>
+        <div class="form-group-item">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="userModalName" class="form-control" placeholder="e.g. Elena Rostova">
+        </div>
+        <div class="form-group-item">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="userModalEmail" class="form-control" placeholder="elena.rostova@arcelormittal.com">
+        </div>
+        <div class="form-group-item">
+          <label class="form-label">Role</label>
+          <select id="userModalRole" class="form-control">
+            <option value="Administrator">Administrator</option>
+            <option value="Engineer" selected>Engineer</option>
+            <option value="Supervisor">Supervisor</option>
+            <option value="Operator">Operator</option>
+          </select>
+        </div>
+        <div class="form-group-item">
+          <label class="form-label">Status</label>
+          <select id="userModalStatus" class="form-control">
+            <option value="Active" selected>Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeUserModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveUserModal()">Save User</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete User Confirm Modal -->
+  <div id="deleteUserModal" class="modal-overlay">
+    <div class="modal-dialog" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Delete User</h3>
+        <button class="modal-close-btn" onclick="closeDeleteUserModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13.5px; color: #334155;">
+          Are you sure you want to delete user <strong id="deleteUserNameSpan"></strong>? This action will be logged in the system audit trail.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeDeleteUserModal()">Cancel</button>
+        <button class="btn btn-primary" style="background-color: #DC2626;" onclick="confirmDeleteUser()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Role Modal -->
+  <div id="roleModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="roleModalTitle" class="modal-title">Add Role</h3>
+        <button class="modal-close-btn" onclick="closeRoleModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group-item">
+          <label class="form-label">Role Name</label>
+          <input type="text" id="roleModalName" class="form-control" placeholder="e.g. Lead Analyst">
+        </div>
+        <div class="form-group-item">
+          <label class="form-label">Description</label>
+          <textarea id="roleModalDesc" class="form-control" rows="3" placeholder="Operations, analytics and system access"></textarea>
+        </div>
+        <div class="form-group-item">
+          <label class="form-label">Status</label>
+          <select id="roleModalStatus" class="form-control">
+            <option value="Active" selected>Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeRoleModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveRoleModal()">Save Role</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Rejection Reason Modal -->
+  <div id="rejectionReasonModal" class="modal-overlay">
+    <div class="modal-dialog" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3 id="rejectionReasonModalTitle" class="modal-title">Add Rejection Reason</h3>
+        <button class="modal-close-btn" onclick="closeRejectionReasonModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group-item">
+          <label class="form-label">Rejection Reason</label>
+          <input type="text" id="rejectionReasonNameInput" class="form-control" placeholder="e.g. Laminations" required>
+        </div>
+        <div class="form-group-item">
+          <label class="form-label">Status</label>
+          <select id="rejectionReasonStatusSelect" class="form-control">
+            <option value="Active" selected>Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeRejectionReasonModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveRejectionReasonModal()">Save Reason</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Rejection Reason Modal -->
+  <div id="rejectionReasonModal" class="modal-overlay">
+    <div class="modal-dialog" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3 id="rejectionReasonModalTitle" class="modal-title">Add Rejection Reason</h3>
+        <button class="modal-close-btn" onclick="closeRejectionReasonModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group-item">
+          <label class="form-label">Rejection Reason</label>
+          <input type="text" id="rejectionReasonNameInput" class="form-control" placeholder="e.g. Laminations" required>
+        </div>
+        <div class="form-group-item">
+          <label class="form-label">Status</label>
+          <select id="rejectionReasonStatusSelect" class="form-control">
+            <option value="Active" selected>Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeRejectionReasonModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveRejectionReasonModal()">Save Reason</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help / Info Modal with Logo 
+  <div id="helpModal" class="modal-overlay">
+    <div class="modal-dialog" style="max-width: 550px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="/images/logo.png" alt="ArcelorMittal" style="height: 34px;">
+          <h3 class="modal-title">Pipe Traceability Portal</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeHelpModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="font-size: 13px; line-height: 1.6; color: #334155;">
+        <p><strong>ArcelorMittal Pipe Traceability Web Portal</strong> provides full operational tracking, user management, granular module permissions, and real-time audit logging across steel pipe manufacturing and delivery lifecycles.</p>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+          <li><strong>Database Engine:</strong> High-performance pure .NET 9 JSON Database in <code>database/</code> directory.</li>
+          <li><strong>Configured Roles:</strong> Administrator, Engineer, Supervisor, Operator.</li>
+          <li><strong>Active Modules:</strong> Pipe Identification, Digital Tally, Rig Operations, Stock Management, Storage Locations, Quality & Inspection, MTC & Documents, Analytics & Reports.</li>
+          <li><strong>Date Range Filtering:</strong> Dynamic time-window filtering for inspections and audit history.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="closeHelpModal()">Got it</button>
+      </div>
+    </div>
+  </div>-->
+
+  <!-- Toast Notification -->
+  <div id="toastNotice" class="toast-notice">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toastText">Action completed successfully</span>
+  </div>
+
+  <script src="/js/portal.js"></script>
+</body>
+</html>

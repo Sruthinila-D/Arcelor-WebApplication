@@ -1,0 +1,30 @@
+[
+  {
+    "Id": "r1",
+    "Name": "Administrator",
+    "Description": "Full system access and configuration",
+    "Users": 9,
+    "Status": "Active"
+  },
+  {
+    "Id": "r2",
+    "Name": "Engineer",
+    "Description": "Operations, analytics, documents access",
+    "Users": 23,
+    "Status": "Active"
+  },
+  {
+    "Id": "r3",
+    "Name": "Supervisor",
+    "Description": "Operational control and confirmations",
+    "Users": 11,
+    "Status": "Active"
+  },
+  {
+    "Id": "r4",
+    "Name": "Operator",
+    "Description": "Field operations and data capture",
+    "Users": 13,
+    "Status": "Active"
+  }
+]

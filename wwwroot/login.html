@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcelorMittal - Pipe Traceability Web Portal</title>
+  <link rel="stylesheet" href="/css/login.css">
+  <link rel="icon" href="/images/logo.png" type="image/png">
+</head>
+<body>
+  <div class="login-wrapper">
+    <!-- Branding Header with Attached Logo -->
+    <div class="login-header-branding">
+      <img src="/images/logo.png" alt="ArcelorMittal" class="login-logo">
+      <div class="portal-tagline">Pipe Traceability Web Portal</div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+      <h2 class="login-card-title">Sign In to Portal</h2>
+      <p class="login-card-subtitle">Enter your system credentials to access administration</p>
+
+      <!-- Error message container -->
+      <div id="errorBanner" class="error-banner">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span id="errorMessage">Invalid credentials</span>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <!-- Username -->
+        <div class="form-field">
+          <label class="form-label" for="username">Username / Employee ID</label>
+          <div class="input-with-icon">
+            <input type="text" id="username" class="login-input" placeholder="admin" value="admin" required autofocus>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-field">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-with-icon">
+            <input type="password" id="password" class="login-input" placeholder="admin" value="admin" required>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <button type="button" class="toggle-pwd-btn" onclick="togglePasswordVisibility()" title="Show/Hide Password">
+              <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Options row -->
+        <div class="form-options-row">
+          <label class="remember-label">
+            <input type="checkbox" id="rememberMe" class="login-checkbox" checked>
+            <span>Remember login</span>
+          </label>
+          <a href="#" class="forgot-link" onclick="alert('Demo notice: Default administrator credentials are admin / admin.'); return false;">Forgot password?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="btn-login">
+          <span>Sign In to Dashboard</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Demo Box helper -->
+      <div >
+        <div >
+          </div>
+      </div>
+    </div>
+
+    <!-- Security Footer -->
+    <div class="login-footer-text">
+      ArcelorMittal Tubular Products &bull; Pipe Traceability Security Gateway 
+    </div>
+  </div>
+
+  <script>
+    function togglePasswordVisibility() {
+      const pwd = document.getElementById('password');
+      const btn = pwd.closest('.input-with-icon').querySelector('.toggle-pwd-btn');
+      const isHidden = pwd.type === 'password';
+      pwd.type = isHidden ? 'text' : 'password';
+      // Swap icon: eye-off when visible, eye when hidden
+      btn.innerHTML = isHidden
+        ? `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+           </svg>`
+        : `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+           </svg>`;
+      btn.title = isHidden ? 'Hide Password' : 'Show Password';
+    }
+
+    function quickFillAdmin() {
+      document.getElementById('username').value = 'admin';
+      document.getElementById('password').value = 'admin';
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const username = (document.getElementById('username')?.value || '').trim();
+      const password = (document.getElementById('password')?.value || '').trim();
+      const rememberMe = document.getElementById('rememberMe')?.checked ?? true;
+      const errorBanner = document.getElementById('errorBanner');
+      const errorMessage = document.getElementById('errorMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      if (errorBanner) errorBanner.style.display = 'none';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Authenticating...</span>';
+      }
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password, rememberMe })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          const userObj = data.user || { name: 'Admin User', role: 'Administrator', initials: 'AD' };
+          localStorage.setItem('user_session', JSON.stringify(userObj));
+          window.location.href = '/index.html';
+        } else {
+          if (errorMessage) errorMessage.textContent = data.message || 'Invalid username or password.';
+          if (errorBanner) errorBanner.style.display = 'flex';
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Sign In to Dashboard</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+          }
+        }
+      } catch (err) {
+        console.warn('Network auth warning:', err);
+        // Client fallback: If credentials match default admin, proceed
+        if (username.toLowerCase() === 'admin' && password === 'admin') {
+          const adminUser = { name: 'Admin User', role: 'Administrator', initials: 'AD' };
+          localStorage.setItem('user_session', JSON.stringify(adminUser));
+          window.location.href = '/index.html';
+          return;
+        }
+
+        if (errorMessage) errorMessage.textContent = 'Server connection error. Please try again.';
+        if (errorBanner) errorBanner.style.display = 'flex';
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Sign In to Dashboard</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+        }
+      }
+    }
+
+    // Auto-check if already authenticated
+    (function checkCurrent() {
+      try {
+        const session = localStorage.getItem('user_session');
+        if (session) {
+          window.location.href = '/index.html';
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>

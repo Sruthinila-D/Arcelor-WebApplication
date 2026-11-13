@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 88" width="240" height="88">
+  <defs>
+    <linearGradient id="arcGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#E04A10;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#F15A24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F87240;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Orange arc/swoosh mark -->
+  <path
+    d="M 44 62
+       C 46 42, 56 16, 80 10
+       C 100  4, 120 12, 128 29
+       C 135 44, 127 59, 113 62
+       C 101 65,  90 57,  89 47
+       C 87  38,  94 31, 103 31
+       C 110 31, 115 36, 112 43"
+    fill="none"
+    stroke="url(#arcGrad)"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- ArcelorMittal wordmark -->
+  <text
+    x="6"
+    y="83"
+    font-family="'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif"
+    font-size="23.5"
+    font-weight="700"
+    fill="#FFFFFF"
+    letter-spacing="-0.4"
+  >ArcelorMittal</text>
+</svg>
