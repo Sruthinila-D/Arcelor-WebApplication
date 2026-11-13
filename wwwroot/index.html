@@ -141,6 +141,12 @@
         </svg>
         <span>Audit & Activity</span>
       </a>
+
+      <!-- Pipe Traceability tag at bottom -->
+      <div class="sidebar-footer-card">
+        <div class="sidebar-footer-title">Pipe Traceability</div>
+        <div class="sidebar-footer-subtitle">Digital Pipe Traceability Solution</div>
+      </div>
     </aside>
 
     <!-- MAIN VIEWPORT -->
@@ -161,7 +167,7 @@
           <div class="date-filter-wrap">
             <button class="date-filter-btn" onclick="toggleDatePopover('dashboard')">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              <span id="dashboardDateLabel">Jun 01, 2025 - Jun 15, 2025</span>
+              <span id="dashboardDateLabel">Nov 01, 2026 - Nov 15, 2026</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
 
@@ -170,20 +176,20 @@
               <div style="font-weight: 700; font-size: 13px; color: #0F172A;">Filter Date Range</div>
               
               <div class="date-presets-row">
-                <button type="button" class="preset-chip active" onclick="applyDatePreset('dashboard', '2025-06-01', '2025-06-15', 'Jun 01, 2025 - Jun 15, 2025', this)">Jun 01 - Jun 15 (Default)</button>
-                <button type="button" class="preset-chip" onclick="applyDatePreset('dashboard', '2025-06-01', '2025-06-07', 'Jun 01, 2025 - Jun 07, 2025', this)">Week 1 (Jun 01 - 07)</button>
-                <button type="button" class="preset-chip" onclick="applyDatePreset('dashboard', '2025-06-08', '2025-06-15', 'Jun 08, 2025 - Jun 15, 2025', this)">Week 2 (Jun 08 - 15)</button>
+                <button type="button" class="preset-chip active" onclick="applyDatePreset('dashboard', '2026-11-01', '2026-11-15', 'Nov 01, 2026 - Nov 15, 2026', this)">Nov 01 - Nov 15 (Default)</button>
+                <button type="button" class="preset-chip" onclick="applyDatePreset('dashboard', '2026-11-01', '2026-11-07', 'Nov 01, 2026 - Nov 07, 2026', this)">Week 1 (Nov 01 - 07)</button>
+                <button type="button" class="preset-chip" onclick="applyDatePreset('dashboard', '2026-11-08', '2026-11-15', 'Nov 08, 2026 - Nov 15, 2026', this)">Week 2 (Nov 08 - 15)</button>
                 <button type="button" class="preset-chip" onclick="applyDatePreset('dashboard', '', '', 'Full Dataset (All Dates)', this)">All Dates</button>
               </div>
 
               <div class="date-inputs-grid">
                 <div class="date-input-field">
                   <label>Start Date</label>
-                  <input type="date" id="dashStartInput" class="date-native-input" value="2025-06-01">
+                  <input type="date" id="dashStartInput" class="date-native-input" value="2026-11-01">
                 </div>
                 <div class="date-input-field">
                   <label>End Date</label>
-                  <input type="date" id="dashEndInput" class="date-native-input" value="2025-06-15">
+                  <input type="date" id="dashEndInput" class="date-native-input" value="2026-11-15">
                 </div>
               </div>
 
@@ -231,7 +237,7 @@
           </div>
 
           <!-- Inspections -->
-          <div class="kpi-card">
+          <div id="kpiCardInspections" class="kpi-card" style="cursor: pointer; transition: all 0.2s;" onclick="selectTrendMetric('Inspections')">
             <div class="kpi-icon-wrap" style="background-color: #FFF3EB; color: #F15A24;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
             </div>
@@ -242,7 +248,7 @@
           </div>
 
           <!-- Passed -->
-          <div class="kpi-card">
+          <div id="kpiCardPassed" class="kpi-card" style="cursor: pointer; transition: all 0.2s;" onclick="selectTrendMetric('Passed')">
             <div class="kpi-icon-wrap" style="background-color: #E6F9F0; color: #0E9F6E;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             </div>
@@ -253,7 +259,7 @@
           </div>
 
           <!-- Rejected -->
-          <div class="kpi-card">
+          <div id="kpiCardRejected" class="kpi-card" style="cursor: pointer; transition: all 0.2s;" onclick="selectTrendMetric('Rejected')">
             <div class="kpi-icon-wrap" style="background-color: #FDE8E8; color: #E02424;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
             </div>
@@ -302,8 +308,12 @@
           <!-- Area Trend Card -->
           <div class="card chart-card">
             <div class="chart-card-header">
-              <div class="chart-card-title">Inspection Trend</div>
-              <div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="chart-card-title">Inspection Trend</div>
+                <span id="trendMetricBadge" class="badge" style="background-color: #FFF3EB; color: #F15A24; font-size: 11px; font-weight: 700; padding: 3px 9px;">1,236 Inspections</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <label for="trendMetricSelect" style="font-size: 12px; color: #64748B; font-weight: 600;">Metric:</label>
                 <select id="trendMetricSelect" class="chart-filter-select" onchange="handleTrendMetricChange()">
                   <option value="Inspections">Inspections</option>
                   <option value="Passed">Passed</option>
@@ -943,7 +953,7 @@
             <div class="date-filter-wrap">
               <button class="date-filter-btn" onclick="toggleDatePopover('audits')">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span id="auditsDateLabel">Jun 01, 2025 - Jun 15, 2025</span>
+                <span id="auditsDateLabel">Nov 01, 2026 - Nov 15, 2026</span>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
 
@@ -952,19 +962,19 @@
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A;">Filter Activity History</div>
                 
                 <div class="date-presets-row">
-                  <button type="button" class="preset-chip active" onclick="applyDatePreset('audits', '2025-06-01', '2025-06-15', 'Jun 01, 2025 - Jun 15, 2025', this)">Jun 01 - Jun 15 (Default)</button>
-                  <button type="button" class="preset-chip" onclick="applyDatePreset('audits', '2025-06-10', '2025-06-15', 'Jun 10, 2025 - Jun 15, 2025', this)">Last 5 Days</button>
+                  <button type="button" class="preset-chip active" onclick="applyDatePreset('audits', '2026-11-01', '2026-11-15', 'Nov 01, 2026 - Nov 15, 2026', this)">Nov 01 - Nov 15 (Default)</button>
+                  <button type="button" class="preset-chip" onclick="applyDatePreset('audits', '2026-11-10', '2026-11-15', 'Nov 10, 2026 - Nov 15, 2026', this)">Last 5 Days</button>
                   <button type="button" class="preset-chip" onclick="applyDatePreset('audits', '', '', 'All Records (History)', this)">All History</button>
                 </div>
 
                 <div class="date-inputs-grid">
                   <div class="date-input-field">
                     <label>Start Date</label>
-                    <input type="date" id="auditStartInput" class="date-native-input" value="2025-06-01">
+                    <input type="date" id="auditStartInput" class="date-native-input" value="2026-11-01">
                   </div>
                   <div class="date-input-field">
                     <label>End Date</label>
-                    <input type="date" id="auditEndInput" class="date-native-input" value="2025-06-15">
+                    <input type="date" id="auditEndInput" class="date-native-input" value="2026-11-15">
                   </div>
                 </div>
 

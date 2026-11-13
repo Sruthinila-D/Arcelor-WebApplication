@@ -2,17 +2,17 @@
 let currentTab = 'dashboard';
 let currentRoleForMatrix = 'Engineer';
 
-// Date Filter States
+// Date Filter States (Coordinated with current calendar 2026)
 let dashboardDateState = {
-  startDate: '2025-06-01',
-  endDate: '2025-06-15',
-  label: 'Jun 01, 2025 - Jun 15, 2025'
+  startDate: '2026-11-01',
+  endDate: '2026-11-15',
+  label: 'Nov 01, 2026 - Nov 15, 2026'
 };
 
 let auditsDateState = {
-  startDate: '2025-06-01',
-  endDate: '2025-06-15',
-  label: 'Jun 01, 2025 - Jun 15, 2025'
+  startDate: '2026-11-01',
+  endDate: '2026-11-15',
+  label: 'Nov 01, 2026 - Nov 15, 2026'
 };
 
 // State management
@@ -246,7 +246,7 @@ function applyCustomDateFilter(view) {
 }
 
 function resetDateFilter(view) {
-  applyDatePreset(view, '2025-06-01', '2025-06-15', 'Jun 01, 2025 - Jun 15, 2025', null);
+  applyDatePreset(view, '2026-11-01', '2026-11-15', 'Nov 01, 2026 - Nov 15, 2026', null);
 }
 
 // ==========================================
@@ -338,19 +338,93 @@ function renderDonutChart(distribution, total) {
   }
 }
 
+function selectTrendMetric(metric) {
+  const select = document.getElementById('trendMetricSelect');
+  if (select) {
+    select.value = metric;
+    handleTrendMetricChange();
+  }
+}
+
 function renderTrendChart(trends, metricKey = 'Inspections') {
   const svg = document.getElementById('trendChartSvg');
   if (!svg || !trends || trends.length === 0) return;
 
-  const width = 500;
-  const height = 220;
-  const padding = { top: 20, right: 30, bottom: 40, left: 50 };
+  // Determine dynamic metric parameters for exact scaling and visual unification
+  let themeColor, lightBg, borderBadge, unitLabel, maxVal, yTicks;
+
+  if (metricKey === 'Rejected') {
+    themeColor = '#E02424'; // Red matching Rejected KPI tile
+    lightBg = '#FDE8E8';
+    borderBadge = '#F8B4B4';
+    unitLabel = 'Rejected Defect Count';
+    maxVal = 35; // Dynamically scaled to fit 28 with headroom
+    yTicks = [0, 7, 14, 21, 28, 35]; // Exact integer steps landing on 28
+  } else if (metricKey === 'Passed') {
+    themeColor = '#0E9F6E'; // Green matching Passed KPI tile
+    lightBg = '#DEF7EC';
+    borderBadge = '#BCF0DA';
+    unitLabel = 'Conforming Pipe Count';
+    maxVal = 1200;
+    yTicks = [0, 300, 600, 900, 1200];
+  } else {
+    themeColor = '#F15A24'; // ArcelorMittal Orange matching Inspections KPI tile
+    lightBg = '#FFF4ED';
+    borderBadge = '#FFD8BE';
+    unitLabel = 'Total Inspected Volume';
+    maxVal = 1400;
+    yTicks = [0, 350, 700, 1050, 1400];
+  }
+
+  // 1. Unify KPI tiles with active outline when metric is selected
+  const kpiCards = {
+    'Inspections': document.getElementById('kpiCardInspections'),
+    'Passed': document.getElementById('kpiCardPassed'),
+    'Rejected': document.getElementById('kpiCardRejected')
+  };
+  Object.keys(kpiCards).forEach(key => {
+    const el = kpiCards[key];
+    if (el) {
+      if (key === metricKey) {
+        el.style.border = `2px solid ${themeColor}`;
+        el.style.boxShadow = `0 4px 14px ${metricKey === 'Rejected' ? 'rgba(224, 36, 36, 0.22)' : (metricKey === 'Passed' ? 'rgba(14, 159, 110, 0.22)' : 'rgba(241, 90, 36, 0.22)')}`;
+        el.style.transform = 'translateY(-2px)';
+      } else {
+        el.style.border = '1px solid #E2E8F0';
+        el.style.boxShadow = 'none';
+        el.style.transform = 'none';
+      }
+    }
+  });
+
+  // 2. Unify header badge with current total
+  const badge = document.getElementById('trendMetricBadge');
+  if (badge && trends.length > 0) {
+    const latestPoint = trends[trends.length - 1];
+    const currentVal = metricKey === 'Passed' ? latestPoint.passed : (metricKey === 'Rejected' ? latestPoint.rejected : latestPoint.inspections);
+    let badgeText = '';
+    if (metricKey === 'Rejected') {
+      badgeText = `Latest: ${currentVal} Rejected (Aligned with Tile)`;
+    } else if (metricKey === 'Passed') {
+      badgeText = `Latest: ${Number(currentVal).toLocaleString()} Passed Pipes`;
+    } else {
+      badgeText = `Latest: ${Number(currentVal).toLocaleString()} Total Inspected`;
+    }
+    badge.innerHTML = `
+      <span style="display:inline-flex; align-items:center; gap:6px; background:${lightBg}; color:${themeColor}; border:1px solid ${borderBadge}; padding:3px 10px; border-radius:6px; font-weight:700; font-size:11.5px;">
+        <span style="width:7px; height:7px; border-radius:50%; background:${themeColor}; display:inline-block;"></span>
+        ${badgeText}
+      </span>
+    `;
+  }
+
+  // 3. SVG Dimensions & coordinate calculations
+  const width = 560;
+  const height = 240;
+  const padding = { top: 32, right: 36, bottom: 48, left: 56 };
 
   const chartW = width - padding.left - padding.right;
   const chartH = height - padding.top - padding.bottom;
-
-  const maxVal = 1250;
-  const yTicks = [0, 300, 600, 900, 1200];
 
   const points = trends.map((t, idx) => {
     const val = metricKey === 'Passed' ? t.passed : (metricKey === 'Rejected' ? t.rejected : t.inspections);
@@ -360,6 +434,7 @@ function renderTrendChart(trends, metricKey = 'Inspections') {
     return { x, y, val, label: t.dateLabel };
   });
 
+  // Smooth bezier curve
   let pathD = `M ${points[0].x} ${points[0].y}`;
   for (let i = 0; i < points.length - 1; i++) {
     const p0 = points[i];
@@ -370,43 +445,87 @@ function renderTrendChart(trends, metricKey = 'Inspections') {
 
   const areaD = `${pathD} L ${points[points.length - 1].x} ${padding.top + chartH} L ${points[0].x} ${padding.top + chartH} Z`;
 
+  // 4. Specified Y-Axis (Line, Arrow, Title, Ticks, Gridlines)
+  const yAxisLine = `
+    <line x1="${padding.left}" y1="${padding.top - 8}" x2="${padding.left}" y2="${padding.top + chartH}" stroke="#64748B" stroke-width="1.6" />
+    <polygon points="${padding.left - 4},${padding.top - 6} ${padding.left + 4},${padding.top - 6} ${padding.left},${padding.top - 14}" fill="#64748B" />
+    <text x="${padding.left - 6}" y="${padding.top - 18}" fill="#475569" font-size="10.5" font-weight="700" text-anchor="start">▲ ${unitLabel}</text>
+  `;
+
   let gridHtml = '';
   yTicks.forEach(tick => {
     const yPos = padding.top + chartH - (tick / maxVal) * chartH;
     gridHtml += `
-      <line x1="${padding.left}" y1="${yPos}" x2="${width - padding.right}" y2="${yPos}" stroke="#E2E8F0" stroke-dasharray="3,3" />
-      <text x="${padding.left - 10}" y="${yPos + 4}" fill="#94A3B8" font-size="11" text-anchor="end">${tick === 0 ? '0' : tick.toLocaleString()}</text>
+      <line x1="${padding.left}" y1="${yPos}" x2="${width - padding.right}" y2="${yPos}" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" />
+      <line x1="${padding.left - 5}" y1="${yPos}" x2="${padding.left}" y2="${yPos}" stroke="#64748B" stroke-width="1.4" />
+      <text x="${padding.left - 9}" y="${yPos + 4}" fill="#64748B" font-size="10.5" font-weight="600" text-anchor="end">${tick === 0 ? '0' : tick.toLocaleString()}</text>
     `;
   });
 
+  // 5. Specified X-Axis (Line, Arrow, Title, Ticks, Dates)
+  const xAxisLine = `
+    <line x1="${padding.left}" y1="${padding.top + chartH}" x2="${width - padding.right + 12}" y2="${padding.top + chartH}" stroke="#64748B" stroke-width="1.6" />
+    <polygon points="${width - padding.right + 10},${padding.top + chartH - 4} ${width - padding.right + 10},${padding.top + chartH + 4} ${width - padding.right + 17},${padding.top + chartH}" fill="#64748B" />
+    <text x="${width - padding.right + 12}" y="${height - 8}" fill="#475569" font-size="10" font-weight="700" text-anchor="end">Inspection Date (2026) ▶</text>
+  `;
+
   let xLabelsHtml = '';
   points.forEach((p, idx) => {
-    if (points.length <= 8 || idx % 2 === 0 || idx === points.length - 1) {
+    xLabelsHtml += `
+      <line x1="${p.x}" y1="${padding.top + chartH}" x2="${p.x}" y2="${padding.top + chartH + 5}" stroke="#64748B" stroke-width="1.2" />
+    `;
+    if (points.length <= 10 || idx % 2 === 0 || idx === points.length - 1) {
       xLabelsHtml += `
-        <text x="${p.x}" y="${height - 12}" fill="#94A3B8" font-size="11" text-anchor="middle">${p.label}</text>
+        <text x="${p.x}" y="${padding.top + chartH + 19}" fill="#64748B" font-size="10.5" font-weight="600" text-anchor="middle">${p.label}</text>
       `;
     }
   });
 
+  // Data point markers
   let circlesHtml = points.map(p => `
-    <circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#FFFFFF" stroke="#F15A24" stroke-width="2.5">
-      <title>${p.label}: ${p.val} ${metricKey}</title>
+    <circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#FFFFFF" stroke="${themeColor}" stroke-width="2.5">
+      <title>${p.label}: ${p.val.toLocaleString()} ${metricKey}</title>
     </circle>
   `).join('');
 
+  // 6. Highlight Callout Pin on Final Point (Nov 15) to explicitly display data match (e.g. 28 Rejected)
+  const last = points[points.length - 1];
+  const calloutVal = Number(last.val).toLocaleString();
+  const calloutText = `${calloutVal} ${metricKey}`;
+  const tagW = 86;
+  const tagH = 22;
+  const tagX = Math.min(last.x - tagW / 2 + 5, width - padding.right - tagW);
+  const tagY = Math.max(last.y - 28, padding.top - 2);
+
+  const calloutHtml = `
+    <g>
+      <circle cx="${last.x}" cy="${last.y}" r="8" fill="${themeColor}" fill-opacity="0.25">
+        <animate attributeName="r" values="5;9;5" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <rect x="${tagX}" y="${tagY}" width="${tagW}" height="${tagH}" rx="4" fill="${themeColor}" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.25))" />
+      <polygon points="${last.x - 4},${tagY + tagH} ${last.x + 4},${tagY + tagH} ${last.x},${tagY + tagH + 5}" fill="${themeColor}" />
+      <text x="${tagX + tagW / 2}" y="${tagY + 14.5}" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">${calloutText}</text>
+    </g>
+  `;
+
+  // Render SVG
   svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
   svg.innerHTML = `
     <defs>
       <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#F15A24" stop-opacity="0.35" />
-        <stop offset="100%" stop-color="#F15A24" stop-opacity="0.02" />
+        <stop offset="0%" stop-color="${themeColor}" stop-opacity="0.32" />
+        <stop offset="100%" stop-color="${themeColor}" stop-opacity="0.02" />
       </linearGradient>
     </defs>
     ${gridHtml}
+    ${yAxisLine}
+    ${xAxisLine}
     <path d="${areaD}" fill="url(#areaGradient)" />
-    <path d="${pathD}" fill="none" stroke="#F15A24" stroke-width="3" stroke-linecap="round" />
+    <path d="${pathD}" fill="none" stroke="${themeColor}" stroke-width="3" stroke-linecap="round" />
     ${circlesHtml}
     ${xLabelsHtml}
+    ${calloutHtml}
   `;
 }
 

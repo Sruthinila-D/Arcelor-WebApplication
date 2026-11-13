@@ -155,26 +155,33 @@ namespace ArcelorMittalPortal.Services
 
         public bool UpdateRole(Role updated)
         {
-            var roles = GetRoles();
-            var r = roles.FirstOrDefault(x => x.Name.Equals(updated.Name, StringComparison.OrdinalIgnoreCase) || x.Id == updated.Id);
+            var roles = LoadFromFile<List<Role>>("roles.json", new List<Role>());
+            var r = roles.FirstOrDefault(x => 
+                (!string.IsNullOrEmpty(updated.Id) && x.Id.Equals(updated.Id, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrEmpty(updated.Name) && x.Name.Equals(updated.Name, StringComparison.OrdinalIgnoreCase)));
             if (r == null) return false;
 
-            r.Description = updated.Description;
-            r.Status = updated.Status;
+            if (!string.IsNullOrWhiteSpace(updated.Description))
+                r.Description = updated.Description;
+            if (!string.IsNullOrWhiteSpace(updated.Status))
+                r.Status = updated.Status;
+
             SaveToFile("roles.json", roles);
-            AddAudit("Updated Role", "Role & Permissions", $"Modified: {r.Name}");
+            AddAudit("Updated Role", "Role & Permissions", $"Modified: {r.Name} (Status: {r.Status})");
             return true;
         }
 
         public bool DeleteRole(string roleName)
         {
-            var roles = GetRoles();
-            var r = roles.FirstOrDefault(x => x.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
+            var roles = LoadFromFile<List<Role>>("roles.json", new List<Role>());
+            var r = roles.FirstOrDefault(x => 
+                x.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase) ||
+                x.Id.Equals(roleName, StringComparison.OrdinalIgnoreCase));
             if (r == null || r.Name.Equals("Administrator", StringComparison.OrdinalIgnoreCase)) return false;
 
             roles.Remove(r);
             SaveToFile("roles.json", roles);
-            AddAudit("Deleted Role", "Role & Permissions", $"Deleted role: {roleName}");
+            AddAudit("Deleted Role", "Role & Permissions", $"Deleted role: {r.Name}");
             return true;
         }
         #endregion
@@ -284,37 +291,58 @@ namespace ArcelorMittalPortal.Services
         #endregion
 
         #region Dashboard Metrics with Dynamic Date Range Filtering
-        private static readonly List<TrendPoint> AllTrendData = new()
+        private static List<TrendPoint> GenerateTrendData(int year, int month)
         {
-            new() { Date = new DateTime(2025, 6, 1), DateLabel = "Jun 01", Inspections = 310, Passed = 285, Rejected = 5 },
-            new() { Date = new DateTime(2025, 6, 2), DateLabel = "Jun 02", Inspections = 375, Passed = 340, Rejected = 6 },
-            new() { Date = new DateTime(2025, 6, 3), DateLabel = "Jun 03", Inspections = 440, Passed = 398, Rejected = 8 },
-            new() { Date = new DateTime(2025, 6, 4), DateLabel = "Jun 04", Inspections = 515, Passed = 465, Rejected = 10 },
-            new() { Date = new DateTime(2025, 6, 5), DateLabel = "Jun 05", Inspections = 590, Passed = 530, Rejected = 12 },
-            new() { Date = new DateTime(2025, 6, 6), DateLabel = "Jun 06", Inspections = 660, Passed = 590, Rejected = 14 },
-            new() { Date = new DateTime(2025, 6, 7), DateLabel = "Jun 07", Inspections = 730, Passed = 655, Rejected = 15 },
-            new() { Date = new DateTime(2025, 6, 8), DateLabel = "Jun 08", Inspections = 805, Passed = 720, Rejected = 17 },
-            new() { Date = new DateTime(2025, 6, 9), DateLabel = "Jun 09", Inspections = 880, Passed = 790, Rejected = 19 },
-            new() { Date = new DateTime(2025, 6, 10), DateLabel = "Jun 10", Inspections = 945, Passed = 850, Rejected = 20 },
-            new() { Date = new DateTime(2025, 6, 11), DateLabel = "Jun 11", Inspections = 1010, Passed = 910, Rejected = 22 },
-            new() { Date = new DateTime(2025, 6, 12), DateLabel = "Jun 12", Inspections = 1075, Passed = 965, Rejected = 23 },
-            new() { Date = new DateTime(2025, 6, 13), DateLabel = "Jun 13", Inspections = 1140, Passed = 1015, Rejected = 25 },
-            new() { Date = new DateTime(2025, 6, 14), DateLabel = "Jun 14", Inspections = 1190, Passed = 1055, Rejected = 27 },
-            new() { Date = new DateTime(2025, 6, 15), DateLabel = "Jun 15", Inspections = 1236, Passed = 1091, Rejected = 28 }
-        };
+            var data = new (int day, int insp, int pass, int rej)[]
+            {
+                (1, 310, 285, 5),
+                (2, 375, 340, 6),
+                (3, 440, 398, 8),
+                (4, 515, 465, 10),
+                (5, 590, 530, 12),
+                (6, 660, 590, 14),
+                (7, 730, 655, 15),
+                (8, 805, 720, 17),
+                (9, 880, 790, 19),
+                (10, 945, 850, 20),
+                (11, 1010, 910, 22),
+                (12, 1075, 965, 23),
+                (13, 1140, 1015, 25),
+                (14, 1190, 1055, 27),
+                (15, 1236, 1091, 28)
+            };
+
+            var monthName = new DateTime(year, month, 1).ToString("MMM");
+            return data.Select(d => new TrendPoint
+            {
+                Date = new DateTime(year, month, d.day),
+                DateLabel = $"{monthName} {d.day:D2}",
+                Inspections = d.insp,
+                Passed = d.pass,
+                Rejected = d.rej
+            }).ToList();
+        }
 
         public DashboardMetrics GetDashboardMetrics(DateTime? startDate = null, DateTime? endDate = null)
         {
             var users = GetUsers();
             var roles = GetRoles();
 
-            var start = startDate ?? new DateTime(2025, 6, 1);
-            var end = endDate ?? new DateTime(2025, 6, 15);
+            var now = DateTime.Now;
+            var currentYear = now.Year;   // 2026
+            var currentMonth = now.Month; // 11
 
-            var filteredTrends = AllTrendData.Where(t => t.Date.Date >= start.Date && t.Date.Date <= end.Date).ToList();
+            var start = startDate ?? new DateTime(currentYear, currentMonth, 1);
+            var end = endDate ?? new DateTime(currentYear, currentMonth, 15);
+
+            var trendYear = start.Year > 2000 ? start.Year : currentYear;
+            var trendMonth = start.Month >= 1 && start.Month <= 12 ? start.Month : currentMonth;
+
+            var allTrends = GenerateTrendData(trendYear, trendMonth);
+            var filteredTrends = allTrends.Where(t => t.Date.Date >= start.Date && t.Date.Date <= end.Date).ToList();
             if (!filteredTrends.Any())
             {
-                filteredTrends = AllTrendData;
+                filteredTrends = allTrends;
             }
 
             var latest = filteredTrends.Last();

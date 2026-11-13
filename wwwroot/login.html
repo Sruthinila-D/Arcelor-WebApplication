@@ -145,7 +145,7 @@
         if (res.ok && data.success) {
           const userObj = data.user || { name: 'Admin User', role: 'Administrator', initials: 'AD' };
           localStorage.setItem('user_session', JSON.stringify(userObj));
-          window.location.href = '/index.html';
+          window.location.href = '/index.html?v=' + Date.now();
         } else {
           if (errorMessage) errorMessage.textContent = data.message || 'Invalid username or password.';
           if (errorBanner) errorBanner.style.display = 'flex';
@@ -160,7 +160,7 @@
         if (username.toLowerCase() === 'admin' && password === 'admin') {
           const adminUser = { name: 'Admin User', role: 'Administrator', initials: 'AD' };
           localStorage.setItem('user_session', JSON.stringify(adminUser));
-          window.location.href = '/index.html';
+          window.location.href = '/index.html?v=' + Date.now();
           return;
         }
 
@@ -178,7 +178,7 @@
       try {
         const session = localStorage.getItem('user_session');
         if (session) {
-          window.location.href = '/index.html';
+          window.location.href = '/index.html?v=' + Date.now();
         }
       } catch (e) {}
     })();
