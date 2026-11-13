@@ -11,8 +11,16 @@ builder.Services.AddDataProtection()
 
 var app = builder.Build();
 
-app.UseStaticFiles();
 app.UseDefaultFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        ctx.Context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+        ctx.Context.Response.Headers["Pragma"] = "no-cache";
+        ctx.Context.Response.Headers["Expires"] = "0";
+    }
+});
 
 // ───── AUTH ─────
 app.MapPost("/api/auth/login", (LoginRequest req, DatabaseService db) =>
@@ -72,22 +80,45 @@ app.MapGet("/api/dashboard", (DateTime? startDate, DateTime? endDate, DatabaseSe
     Results.Ok(db.GetDashboardMetrics(startDate, endDate)));
 
 // ───── USERS ─────
-app.MapGet("/api/users", (string? search, int? page, int? pageSize, DatabaseService db) =>
+app.MapGet("/api/users", (string? search, string? status, string? role, int? page, int? pageSize, DatabaseService db) =>
 {
-    var users = db.GetUsers();
+    var p = page.GetValueOrDefault(1);
+    var ps = pageSize.GetValueOrDefault(5);
+    if (p <= 0) p = 1;
+    if (ps <= 0) ps = 5;
+
+    var users = db.GetUsers().AsEnumerable();
+
     if (!string.IsNullOrWhiteSpace(search))
     {
         var s = search.Trim().ToLowerInvariant();
-        users = users.Where(u => u.Name.ToLowerInvariant().Contains(s) ||
-                                  u.Email.ToLowerInvariant().Contains(s) ||
-                                  u.EmployeeId.ToLowerInvariant().Contains(s) ||
-                                  u.Role.ToLowerInvariant().Contains(s)).ToList();
+        users = users.Where(u =>
+            (u.Name != null && u.Name.ToLowerInvariant().Contains(s)) ||
+            (u.Email != null && u.Email.ToLowerInvariant().Contains(s)) ||
+            (u.EmployeeId != null && u.EmployeeId.ToLowerInvariant().Contains(s)) ||
+            (u.Role != null && u.Role.ToLowerInvariant().Contains(s))
+        );
     }
-    var total = users.Count;
-    var p = page.GetValueOrDefault(1);
-    var ps = pageSize.GetValueOrDefault(10);
-    var items = users.Skip((p - 1) * ps).Take(ps).ToList();
-    return Results.Ok(new { items, total, page = p, pageSize = ps, totalPages = (int)Math.Ceiling(total / (double)ps) });
+
+    if (!string.IsNullOrWhiteSpace(status) && !status.Equals("All", StringComparison.OrdinalIgnoreCase))
+    {
+        users = users.Where(u => u.Status != null && u.Status.Equals(status.Trim(), StringComparison.OrdinalIgnoreCase));
+    }
+
+    if (!string.IsNullOrWhiteSpace(role) && !role.Equals("All", StringComparison.OrdinalIgnoreCase))
+    {
+        users = users.Where(u => u.Role != null && u.Role.Equals(role.Trim(), StringComparison.OrdinalIgnoreCase));
+    }
+
+    var userList = users.ToList();
+    var total = userList.Count;
+    var totalPages = (int)Math.Ceiling((double)total / ps);
+    if (totalPages == 0) totalPages = 1;
+    if (p > totalPages) p = totalPages;
+
+    var items = userList.Skip((p - 1) * ps).Take(ps).ToList();
+
+    return Results.Ok(new { items, total, page = p, pageSize = ps, totalPages });
 });
 
 app.MapGet("/api/users/next-id", (DatabaseService db) =>
@@ -118,12 +149,27 @@ app.MapDelete("/api/users/{id}", (string id, DatabaseService db) =>
     db.DeleteUser(id) ? Results.Ok(new { success = true }) : Results.NotFound(new { success = false }));
 
 // ───── ROLES ─────
-app.MapGet("/api/roles", (DatabaseService db) => Results.Ok(db.GetRoles()));
+app.MapGet("/api/roles", (string? search, string? status, DatabaseService db) =>
+{
+    var roles = db.GetRoles().AsEnumerable();
+    if (!string.IsNullOrWhiteSpace(search))
+    {
+        var s = search.Trim().ToLowerInvariant();
+        roles = roles.Where(r => (r.Name != null && r.Name.ToLowerInvariant().Contains(s)) ||
+                                 (r.Description != null && r.Description.ToLowerInvariant().Contains(s)));
+    }
+    if (!string.IsNullOrWhiteSpace(status) && !status.Equals("All", StringComparison.OrdinalIgnoreCase))
+    {
+        roles = roles.Where(r => r.Status != null && r.Status.Equals(status.Trim(), StringComparison.OrdinalIgnoreCase));
+    }
+    return Results.Ok(roles.ToList());
+});
 app.MapPost("/api/roles", (Role role, DatabaseService db) =>
     db.AddRole(role) ? Results.Ok(new { success = true }) : Results.BadRequest(new { success = false, message = "Role already exists" }));
-app.MapPut("/api/roles/{name}", (string name, Role role, DatabaseService db) =>
+app.MapPut("/api/roles/{id}", (string id, Role role, DatabaseService db) =>
 {
-    role.Name = name;
+    if (string.IsNullOrEmpty(role.Id)) role.Id = id;
+    if (string.IsNullOrEmpty(role.Name)) role.Name = id;
     return db.UpdateRole(role) ? Results.Ok(new { success = true }) : Results.NotFound(new { success = false });
 });
 app.MapDelete("/api/roles/{name}", (string name, DatabaseService db) =>

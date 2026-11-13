@@ -561,9 +561,13 @@ function renderYardBays() {
 // SCREEN 2: USER MANAGEMENT
 // ==========================================
 async function loadUsers() {
-  const search = document.getElementById('userSearchInput').value.trim();
-  const status = document.getElementById('userStatusFilter').value;
-  const role = document.getElementById('userRoleFilter').value;
+  const searchEl = document.getElementById('userSearchInput');
+  const statusEl = document.getElementById('userStatusFilter');
+  const roleEl = document.getElementById('userRoleFilter');
+
+  const search = searchEl ? searchEl.value.trim() : '';
+  const status = statusEl ? statusEl.value : 'All';
+  const role = roleEl ? roleEl.value : 'All';
 
   usersState.search = search;
   usersState.status = status;
@@ -600,8 +604,8 @@ function renderUsersTable(users) {
       <td style="color: #475569;">${u.email}</td>
       <td><span style="font-weight: 500;">${u.role}</span></td>
       <td>
-        <span class="status-badge ${u.status.toLowerCase() === 'active' ? 'status-active' : 'status-inactive'}">
-          ${u.status}
+        <span class="status-badge ${(u.status || 'Active').toLowerCase() === 'active' ? 'status-active' : 'status-inactive'}">
+          ${u.status || 'Active'}
         </span>
       </td>
       <td>
@@ -798,13 +802,29 @@ async function confirmDeleteUser() {
 // SCREEN 3: ROLE & PERMISSIONS
 // ==========================================
 async function loadRoles() {
-  const search = document.getElementById('roleSearchInput').value.trim();
+  const searchInput = document.getElementById('roleSearchInput');
+  const search = searchInput ? searchInput.value.trim() : '';
   try {
     const res = await fetch(`/api/roles?search=${encodeURIComponent(search)}`);
     const roles = await res.json();
     renderRolesTable(roles);
+    updateRoleDropdowns(roles);
   } catch (err) {
     console.error('Failed to load roles:', err);
+  }
+}
+
+function updateRoleDropdowns(roles) {
+  if (!roles || !roles.length) return;
+  const userRoleFilter = document.getElementById('userRoleFilter');
+  if (userRoleFilter) {
+    const currentVal = userRoleFilter.value;
+    const baseRoles = ['Administrator', 'Engineer', 'Supervisor', 'Operator'];
+    const allRoleNames = Array.from(new Set([...baseRoles, ...roles.map(r => r.name)]));
+    userRoleFilter.innerHTML = `<option value="All">All</option>` + allRoleNames.map(r => `<option value="${r}">${r}</option>`).join('');
+    if (allRoleNames.includes(currentVal) || currentVal === 'All') {
+      userRoleFilter.value = currentVal;
+    }
   }
 }
 
