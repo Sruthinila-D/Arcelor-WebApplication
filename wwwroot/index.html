@@ -316,51 +316,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Dashboard Visual Row 2: Production by Grade + Yard Bay Capacity -->
-        <div class="dashboard-grid-row" style="grid-template-columns: 5.4fr 4.6fr;">
-          <!-- Chart 3: Production & Dispatch by Grade -->
-          <div class="card chart-card">
-            <div class="chart-card-header">
-              <div>
-                <div class="chart-card-title">Production & Dispatch by Pipe Grade</div>
-                <div style="font-size: 11.5px; color: #64748B; margin-top: 2px;">Volume comparison across prime casing & line pipe specs</div>
-              </div>
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <select id="gradeCategoryFilter" class="chart-filter-select" onchange="renderGradeBarChart()">
-                  <option value="all">All Pipe Grades</option>
-                  <option value="casing">Casing & Tubing</option>
-                  <option value="linepipe">Line Pipe</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Legend -->
-            <div class="chart-legend-row">
-              <span><span class="legend-dot" style="background-color: #0B192C;"></span>Produced (MT)</span>
-              <span><span class="legend-dot" style="background-color: #F15A24;"></span>Dispatched (MT)</span>
-            </div>
-
-            <div class="bar-chart-container">
-              <svg id="gradeBarChartSvg" viewBox="0 0 520 230" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 230px;"></svg>
-            </div>
-          </div>
-
-          <!-- Chart 4: Storage Yard & Bay Capacity -->
-          <div class="card chart-card">
-            <div class="chart-card-header">
-              <div>
-                <div class="chart-card-title">Yard Storage & Bay Capacity</div>
-                <div style="font-size: 11.5px; color: #64748B; margin-top: 2px;">Real-time pipe storage rack occupancy</div>
-              </div>
-              <span class="badge badge-active" style="background: #EBF5FF; color: #1E40AF; font-size: 11.5px; font-weight: 700; padding: 4px 10px;">76.8% Utilized</span>
-            </div>
-
-            <div class="yard-bays-list" id="yardBaysContainer">
-              <!-- Rendered dynamically by JS -->
-            </div>
-          </div>
-        </div>
       </section>
 
       <!-- ========================================================= -->
@@ -414,7 +369,6 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th style="width: 40px;"><input type="checkbox" class="custom-checkbox" onchange="toggleSelectAllUsers(this)"></th>
                   <th>Employee ID</th>
                   <th>Name</th>
                   <th>Email</th>
@@ -1233,6 +1187,6 @@
     <span id="toastText">Action completed successfully</span>
   </div>
 
-  <script src="/js/portal.js?v=4.0"></script>
+  <script src="/js/portal.js?v=5.0"></script>
 </body>
 </html>

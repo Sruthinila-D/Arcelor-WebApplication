@@ -592,13 +592,12 @@ async function loadUsers() {
 function renderUsersTable(users) {
   const tbody = document.getElementById('usersTableBody');
   if (!users || users.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 30px; color: #94A3B8;">No users found matching your search.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 30px; color: #94A3B8;">No users found matching your search.</td></tr>`;
     return;
   }
 
   tbody.innerHTML = users.map(u => `
     <tr>
-      <td><input type="checkbox" class="custom-checkbox user-row-select" value="${u.employeeId}"></td>
       <td style="font-weight: 600; color: #0F172A;">${u.employeeId}</td>
       <td style="font-weight: 600;">${u.name}</td>
       <td style="color: #475569;">${u.email}</td>
