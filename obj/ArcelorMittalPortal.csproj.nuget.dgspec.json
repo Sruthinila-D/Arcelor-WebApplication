@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\ArcelorMittalPortal.csproj": {}
+    "C:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\ArcelorMittalPortal.csproj": {}
   },
   "projects": {
-    "c:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\ArcelorMittalPortal.csproj": {
+    "C:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\ArcelorMittalPortal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\ArcelorMittalPortal.csproj",
+        "projectUniqueName": "C:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\ArcelorMittalPortal.csproj",
         "projectName": "ArcelorMittalPortal",
-        "projectPath": "c:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\ArcelorMittalPortal.csproj",
+        "projectPath": "C:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\ArcelorMittalPortal.csproj",
         "packagesPath": "C:\\Users\\sruth\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\obj\\",
+        "outputPath": "C:\\Users\\sruth\\OneDrive\\Desktop\\Arcelor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sruth\\AppData\\Roaming\\NuGet\\NuGet.Config"

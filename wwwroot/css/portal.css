@@ -57,7 +57,7 @@ body {
 .brand-section {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 30px;
 }
 
 .brand-logo-wrap {

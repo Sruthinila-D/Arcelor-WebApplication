@@ -21,7 +21,6 @@ c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\rjsmrazor.dswa.cache.js
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\scopedcss\bundle\ArcelorMittalPortal.styles.css
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\compressed\pso3uk52sm-kk5dq060ge.gz
-c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\compressed\pb9nvr3syy-wbwx96e9pf.gz
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\compressed\n7hg8i9r2x-itpod6yjvl.gz
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\compressed\nlvj85b3xm-r5e6ztw5n7.gz
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\staticwebassets.build.json
@@ -35,3 +34,5 @@ c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\ArcelorMittalPortal.gen
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\ref\ArcelorMittalPortal.dll
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\compressed\7lt0bqtom5-10not9h43n.gz
 c:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\compressed\v5v0ktuu91-to2iyw7f8f.gz
+C:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\ArcelorMittalPortal.sourcelink.json
+C:\Users\sruth\OneDrive\Desktop\Arcelor\obj\Debug\net9.0\compressed\pb9nvr3syy-m0k7gnerr8.gz

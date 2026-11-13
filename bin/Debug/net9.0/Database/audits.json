@@ -1,5 +1,50 @@
 [
   {
+    "Id": "c44a7993ac",
+    "DateTimeString": "Nov 13, 2026 08:31",
+    "Timestamp": "2026-11-13T03:01:26.8880757Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "b325b35534",
+    "DateTimeString": "Nov 13, 2026 08:31",
+    "Timestamp": "2026-11-13T03:01:21.4465885Z",
+    "User": "Admin User",
+    "Action": "User Logout",
+    "Module": "Authentication",
+    "Details": "User logged out"
+  },
+  {
+    "Id": "a7c668647c",
+    "DateTimeString": "Nov 13, 2026 01:06",
+    "Timestamp": "2026-11-12T19:36:21.0436206Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "75c78cfed1",
+    "DateTimeString": "Nov 13, 2026 01:06",
+    "Timestamp": "2026-11-12T19:36:19.1612542Z",
+    "User": "Admin User",
+    "Action": "User Logout",
+    "Module": "Authentication",
+    "Details": "User logged out"
+  },
+  {
+    "Id": "cf5dcec3d6",
+    "DateTimeString": "Nov 13, 2026 01:06",
+    "Timestamp": "2026-11-12T19:36:14.5516025Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
     "Id": "f617c2499c",
     "DateTimeString": "Nov 13, 2026 00:21",
     "Timestamp": "2026-11-12T18:51:34.5886051Z",

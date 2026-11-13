@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArcelorMittalPortal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76f09856ac5bde1d5319b71a47970c1b1e4f211a")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArcelorMittalPortal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArcelorMittalPortal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
