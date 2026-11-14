@@ -178,6 +178,15 @@ app.MapDelete("/api/roles/{name}", (string name, DatabaseService db) =>
 // ───── PERMISSIONS ─────
 app.MapGet("/api/permissions", (DatabaseService db) => Results.Ok(db.GetAllRolePermissions()));
 app.MapGet("/api/permissions/{role}", (string role, DatabaseService db) => Results.Ok(db.GetRolePermissions(role)));
+app.MapPost("/api/permissions", (RolePermissions perms, DatabaseService db) =>
+    db.SaveRolePermissions(perms) ? Results.Ok(new { success = true }) : Results.BadRequest(new { success = false }));
+app.MapPut("/api/permissions", (RolePermissions perms, DatabaseService db) =>
+    db.SaveRolePermissions(perms) ? Results.Ok(new { success = true }) : Results.BadRequest(new { success = false }));
+app.MapPost("/api/permissions/{role}", (string role, RolePermissions perms, DatabaseService db) =>
+{
+    perms.RoleName = role;
+    return db.SaveRolePermissions(perms) ? Results.Ok(new { success = true }) : Results.BadRequest(new { success = false });
+});
 app.MapPut("/api/permissions/{role}", (string role, RolePermissions perms, DatabaseService db) =>
 {
     perms.RoleName = role;
@@ -186,6 +195,8 @@ app.MapPut("/api/permissions/{role}", (string role, RolePermissions perms, Datab
 
 // ───── SETTINGS ─────
 app.MapGet("/api/settings", (DatabaseService db) => Results.Ok(db.GetSettings()));
+app.MapPost("/api/settings", (AppSettingsModel settings, DatabaseService db) =>
+    db.SaveSettings(settings) ? Results.Ok(new { success = true }) : Results.BadRequest(new { success = false }));
 app.MapPut("/api/settings", (AppSettingsModel settings, DatabaseService db) =>
     db.SaveSettings(settings) ? Results.Ok(new { success = true }) : Results.BadRequest(new { success = false }));
 

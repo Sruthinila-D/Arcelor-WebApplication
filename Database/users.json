@@ -1,5 +1,14 @@
 [
   {
+    "EmployeeId": "EMP057",
+    "Name": "Prisha",
+    "Email": "prisha@gmail.com",
+    "Role": "Supervisor",
+    "Status": "Active",
+    "Password": "password",
+    "CreatedAt": "2026-11-14T13:32:16.3392899Z"
+  },
+  {
     "EmployeeId": "EMP001",
     "Name": "Ahmed Khan",
     "Email": "ahmed.khan@arcelormittal.com",

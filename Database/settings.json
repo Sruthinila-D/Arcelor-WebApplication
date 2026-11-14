@@ -27,7 +27,7 @@
     {
       "Id": "1",
       "Name": "Crack",
-      "Status": "Active"
+      "Status": "Inactive"
     },
     {
       "Id": "2",
@@ -47,6 +47,16 @@
     {
       "Id": "5",
       "Name": "Other",
+      "Status": "Active"
+    },
+    {
+      "Id": "6",
+      "Name": "Surface Pitting",
+      "Status": "Active"
+    },
+    {
+      "Id": "53908",
+      "Name": "Dent / Gouge",
       "Status": "Active"
     }
   ],
@@ -96,7 +106,7 @@
   "BackupLocation": "D:\\Backups\\PipeTraceability",
   "EnableMfa": true,
   "EnableSso": false,
-  "ErpIntegrationApi": false,
+  "ErpIntegrationApi": true,
   "DataWarehouseIntegration": true,
   "LogRetentionDays": 365
 }

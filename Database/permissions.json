@@ -1,310 +1,310 @@
 [
-    {
-        "RoleName":  "Administrator",
-        "Modules":  [
-                        {
-                            "ModuleName":  "Pipe Identification",
-                            "Icon":  "box",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  true,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Digital Tally",
-                            "Icon":  "clipboard-list",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  true,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Rig Operations",
-                            "Icon":  "industry",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  true,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Stock Management",
-                            "Icon":  "archive",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  true,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Storage Locations",
-                            "Icon":  "map-pin",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  true,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Quality \u0026 Inspection",
-                            "Icon":  "check-circle",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  true,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "MTC \u0026 Documents",
-                            "Icon":  "file-text",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  true,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Analytics \u0026 Reports",
-                            "Icon":  "bar-chart-2",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  true,
-                            "Approve":  true
-                        }
-                    ]
-    },
-    {
-        "RoleName":  "Engineer",
-        "Modules":  [
-                        {
-                            "ModuleName":  "Pipe Identification",
-                            "Icon":  "box",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Digital Tally",
-                            "Icon":  "clipboard-list",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Rig Operations",
-                            "Icon":  "industry",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Stock Management",
-                            "Icon":  "archive",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Storage Locations",
-                            "Icon":  "map-pin",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Quality \u0026 Inspection",
-                            "Icon":  "check-circle",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "MTC \u0026 Documents",
-                            "Icon":  "file-text",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Analytics \u0026 Reports",
-                            "Icon":  "bar-chart-2",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        }
-                    ]
-    },
-    {
-        "RoleName":  "Supervisor",
-        "Modules":  [
-                        {
-                            "ModuleName":  "Pipe Identification",
-                            "Icon":  "box",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Digital Tally",
-                            "Icon":  "clipboard-list",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Rig Operations",
-                            "Icon":  "industry",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Stock Management",
-                            "Icon":  "archive",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Storage Locations",
-                            "Icon":  "map-pin",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Quality \u0026 Inspection",
-                            "Icon":  "check-circle",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "MTC \u0026 Documents",
-                            "Icon":  "file-text",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  true,
-                            "Delete":  false,
-                            "Approve":  true
-                        },
-                        {
-                            "ModuleName":  "Analytics \u0026 Reports",
-                            "Icon":  "bar-chart-2",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        }
-                    ]
-    },
-    {
-        "RoleName":  "Operator",
-        "Modules":  [
-                        {
-                            "ModuleName":  "Pipe Identification",
-                            "Icon":  "box",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Digital Tally",
-                            "Icon":  "clipboard-list",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Rig Operations",
-                            "Icon":  "industry",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Stock Management",
-                            "Icon":  "archive",
-                            "View":  true,
-                            "Create":  false,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Storage Locations",
-                            "Icon":  "map-pin",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Quality \u0026 Inspection",
-                            "Icon":  "check-circle",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "MTC \u0026 Documents",
-                            "Icon":  "file-text",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        },
-                        {
-                            "ModuleName":  "Analytics \u0026 Reports",
-                            "Icon":  "bar-chart-2",
-                            "View":  true,
-                            "Create":  true,
-                            "Edit":  false,
-                            "Delete":  false,
-                            "Approve":  false
-                        }
-                    ]
-    }
+  {
+    "RoleName": "Administrator",
+    "Modules": [
+      {
+        "ModuleName": "Pipe Identification",
+        "Icon": "box",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Digital Tally",
+        "Icon": "clipboard-list",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Rig Operations",
+        "Icon": "industry",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Stock Management",
+        "Icon": "archive",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Storage Locations",
+        "Icon": "map-pin",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Quality \u0026 Inspection",
+        "Icon": "check-circle",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": true
+      },
+      {
+        "ModuleName": "MTC \u0026 Documents",
+        "Icon": "file-text",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Analytics \u0026 Reports",
+        "Icon": "bar-chart-2",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": true
+      }
+    ]
+  },
+  {
+    "RoleName": "Engineer",
+    "Modules": [
+      {
+        "ModuleName": "Pipe Identification",
+        "Icon": "box",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": true,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Digital Tally",
+        "Icon": "clipboard-list",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Rig Operations",
+        "Icon": "industry",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Stock Management",
+        "Icon": "archive",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Storage Locations",
+        "Icon": "map-pin",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Quality \u0026 Inspection",
+        "Icon": "check-circle",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "MTC \u0026 Documents",
+        "Icon": "file-text",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Analytics \u0026 Reports",
+        "Icon": "bar-chart-2",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      }
+    ]
+  },
+  {
+    "RoleName": "Supervisor",
+    "Modules": [
+      {
+        "ModuleName": "Pipe Identification",
+        "Icon": "box",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Digital Tally",
+        "Icon": "clipboard-list",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Rig Operations",
+        "Icon": "industry",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Stock Management",
+        "Icon": "archive",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Storage Locations",
+        "Icon": "map-pin",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Quality \u0026 Inspection",
+        "Icon": "check-circle",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": true
+      },
+      {
+        "ModuleName": "MTC \u0026 Documents",
+        "Icon": "file-text",
+        "View": true,
+        "Create": true,
+        "Edit": true,
+        "Delete": false,
+        "Approve": true
+      },
+      {
+        "ModuleName": "Analytics \u0026 Reports",
+        "Icon": "bar-chart-2",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      }
+    ]
+  },
+  {
+    "RoleName": "Operator",
+    "Modules": [
+      {
+        "ModuleName": "Pipe Identification",
+        "Icon": "box",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Digital Tally",
+        "Icon": "clipboard-list",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Rig Operations",
+        "Icon": "industry",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Stock Management",
+        "Icon": "archive",
+        "View": true,
+        "Create": false,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Storage Locations",
+        "Icon": "map-pin",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Quality \u0026 Inspection",
+        "Icon": "check-circle",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "MTC \u0026 Documents",
+        "Icon": "file-text",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      },
+      {
+        "ModuleName": "Analytics \u0026 Reports",
+        "Icon": "bar-chart-2",
+        "View": true,
+        "Create": true,
+        "Edit": false,
+        "Delete": false,
+        "Approve": false
+      }
+    ]
+  }
 ]

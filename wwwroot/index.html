@@ -292,16 +292,56 @@
           </div>
         </div>
 
-        <!-- Dashboard Visual Row 1: Stock Distribution + Inspection Trend -->
+        <!-- Dashboard Visual Row: Stock Distribution + Inspection Trend (Full Viewport Fill) -->
         <div class="dashboard-grid-row">
           <!-- Donut Card -->
           <div class="card chart-card">
             <div class="chart-card-header">
-              <div class="chart-card-title">Stock Distribution</div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="chart-card-title">Stock Distribution</div>
+                <span class="badge" style="background-color: #EBF5FF; color: #1C64F2; font-size: 11px; font-weight: 700; padding: 3px 9px;">12,450 Total In-Stock</span>
+              </div>
+              <div style="font-size: 11.5px; color: #64748B; font-weight: 600;">Yard Inventory Overview</div>
             </div>
+
             <div class="donut-chart-container">
               <div id="donutSvgWrap" class="donut-svg-wrap"></div>
               <div id="donutLegendList" class="donut-legend-list"></div>
+            </div>
+
+            <!-- Segmented ratio visual bar -->
+            <div id="stockRatioBarWrap" style="margin: 6px 0 10px 0;">
+              <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748B; font-weight: 600; margin-bottom: 5px;">
+                <span>Inventory Yard Allocation</span>
+                <span>100% Accounted</span>
+              </div>
+              <div id="stockRatioBar" style="display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: #E2E8F0;">
+                <div style="width: 65.9%; background: #10B981;" title="Available: 65.9%"></div>
+                <div style="width: 2.6%; background: #F59E0B;" title="In Transit: 2.6%"></div>
+                <div style="width: 1.2%; background: #06B6D4;" title="Inspection: 1.2%"></div>
+                <div style="width: 0.2%; background: #EF4444;" title="Rejected: 0.2%"></div>
+                <div style="width: 30.1%; background: #3B82F6;" title="Other: 30.1%"></div>
+              </div>
+            </div>
+
+            <!-- Stock Bottom Metric Strip -->
+            <div class="card-footer-metrics-grid">
+              <div class="footer-metric-pill" style="border-left: 3px solid #10B981;">
+                <div class="fmp-val" style="color: #0E9F6E;">8,200</div>
+                <div class="fmp-lbl">Available (Dispatch Ready)</div>
+              </div>
+              <div class="footer-metric-pill" style="border-left: 3px solid #F59E0B;">
+                <div class="fmp-val" style="color: #D97706;">320</div>
+                <div class="fmp-lbl">In Transit Fleet</div>
+              </div>
+              <div class="footer-metric-pill" style="border-left: 3px solid #06B6D4;">
+                <div class="fmp-val" style="color: #0891B2;">150</div>
+                <div class="fmp-lbl">QC Lab Testing Hold</div>
+              </div>
+              <div class="footer-metric-pill" style="border-left: 3px solid #EF4444;">
+                <div class="fmp-val" style="color: #E02424;">28</div>
+                <div class="fmp-lbl">Defective / Quarantined</div>
+              </div>
             </div>
           </div>
 
@@ -310,7 +350,7 @@
             <div class="chart-card-header">
               <div style="display: flex; align-items: center; gap: 10px;">
                 <div class="chart-card-title">Inspection Trend</div>
-                <span id="trendMetricBadge" class="badge" style="background-color: #FFF3EB; color: #F15A24; font-size: 11px; font-weight: 700; padding: 3px 9px;">1,236 Inspections</span>
+                <span id="trendMetricBadge" class="badge" style="background-color: #FFF3EB; color: #F15A24; font-size: 11px; font-weight: 700; padding: 3px 9px;">Latest: 1,236 Total Inspected</span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <label for="trendMetricSelect" style="font-size: 12px; color: #64748B; font-weight: 600;">Metric:</label>
@@ -321,8 +361,29 @@
                 </select>
               </div>
             </div>
+
             <div class="trend-svg-container">
               <svg id="trendChartSvg"></svg>
+            </div>
+
+            <!-- Inspection Trend Bottom Metric Strip -->
+            <div class="card-footer-metrics-grid">
+              <div class="footer-metric-pill" style="border-left: 3px solid #F15A24;">
+                <div class="fmp-val" style="color: #EA580C;">1,236</div>
+                <div class="fmp-lbl">Batch Inspected (Nov 01-15)</div>
+              </div>
+              <div class="footer-metric-pill" style="border-left: 3px solid #0E9F6E;">
+                <div class="fmp-val" style="color: #0E9F6E;">88.3%</div>
+                <div class="fmp-lbl">First-Pass Yield (1,091 Passed)</div>
+              </div>
+              <div class="footer-metric-pill" style="border-left: 3px solid #E02424;">
+                <div class="fmp-val" style="color: #E02424;">2.2%</div>
+                <div class="fmp-lbl">Rejection Rate (28 Rejected)</div>
+              </div>
+              <div class="footer-metric-pill" style="border-left: 3px solid #3B82F6;">
+                <div class="fmp-val" style="color: #2563EB;">PSL 2</div>
+                <div class="fmp-lbl">API Spec 5L Compliance</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1108,33 +1169,6 @@
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeRoleModal()">Cancel</button>
         <button class="btn btn-primary" onclick="saveRoleModal()">Save Role</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Add / Edit Rejection Reason Modal -->
-  <div id="rejectionReasonModal" class="modal-overlay">
-    <div class="modal-dialog" style="max-width: 420px;">
-      <div class="modal-header">
-        <h3 id="rejectionReasonModalTitle" class="modal-title">Add Rejection Reason</h3>
-        <button class="modal-close-btn" onclick="closeRejectionReasonModal()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group-item">
-          <label class="form-label">Rejection Reason</label>
-          <input type="text" id="rejectionReasonNameInput" class="form-control" placeholder="e.g. Laminations" required>
-        </div>
-        <div class="form-group-item">
-          <label class="form-label">Status</label>
-          <select id="rejectionReasonStatusSelect" class="form-control">
-            <option value="Active" selected>Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-outline" onclick="closeRejectionReasonModal()">Cancel</button>
-        <button class="btn btn-primary" onclick="saveRejectionReasonModal()">Save Reason</button>
       </div>
     </div>
   </div>

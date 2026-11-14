@@ -1,5 +1,203 @@
 [
   {
+    "Id": "2e93a6f4be",
+    "DateTimeString": "Nov 14, 2026 19:03",
+    "Timestamp": "2026-11-14T13:33:41.8013741Z",
+    "User": "Admin User",
+    "Action": "Updated Role",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Modified: Engineer (Status: Active)"
+  },
+  {
+    "Id": "1cd2098614",
+    "DateTimeString": "Nov 14, 2026 19:03",
+    "Timestamp": "2026-11-14T13:33:32.4634184Z",
+    "User": "Admin User",
+    "Action": "Updated Role",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Modified: Engineer (Status: Active)"
+  },
+  {
+    "Id": "1f716c1293",
+    "DateTimeString": "Nov 14, 2026 19:02",
+    "Timestamp": "2026-11-14T13:32:16.3461438Z",
+    "User": "Admin User",
+    "Action": "Created User",
+    "Module": "User Management",
+    "Details": "New user: Prisha (EMP057)"
+  },
+  {
+    "Id": "740b11e6a7",
+    "DateTimeString": "Nov 14, 2026 12:11",
+    "Timestamp": "2026-11-14T06:41:26.0266174Z",
+    "User": "Admin User",
+    "Action": "Updated Role Permissions",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Updated permissions matrix for: Engineer"
+  },
+  {
+    "Id": "9314da166e",
+    "DateTimeString": "Nov 14, 2026 12:10",
+    "Timestamp": "2026-11-14T06:40:58.6741046Z",
+    "User": "Admin User",
+    "Action": "Updated Role Permissions",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Updated permissions matrix for: Engineer"
+  },
+  {
+    "Id": "ac81d25bb6",
+    "DateTimeString": "Nov 14, 2026 12:10",
+    "Timestamp": "2026-11-14T06:40:27.8668602Z",
+    "User": "Admin User",
+    "Action": "Updated Role Permissions",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Updated permissions matrix for: Engineer"
+  },
+  {
+    "Id": "1c9aee1bc5",
+    "DateTimeString": "Nov 14, 2026 12:09",
+    "Timestamp": "2026-11-14T06:39:46.7463378Z",
+    "User": "Admin User",
+    "Action": "Updated Role Permissions",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Updated permissions matrix for: Engineer"
+  },
+  {
+    "Id": "cc338095be",
+    "DateTimeString": "Nov 14, 2026 12:06",
+    "Timestamp": "2026-11-14T06:36:09.578424Z",
+    "User": "Admin User",
+    "Action": "Updated Role",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Modified: Administrator (Status: Inactive)"
+  },
+  {
+    "Id": "ddb9dcbae0",
+    "DateTimeString": "Nov 14, 2026 12:05",
+    "Timestamp": "2026-11-14T06:35:51.6147353Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "d8a810570a",
+    "DateTimeString": "Nov 14, 2026 12:00",
+    "Timestamp": "2026-11-14T06:30:01.8091495Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "6a81941821",
+    "DateTimeString": "Nov 14, 2026 11:59",
+    "Timestamp": "2026-11-14T06:29:58.0560946Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "33e12e03ea",
+    "DateTimeString": "Nov 14, 2026 11:59",
+    "Timestamp": "2026-11-14T06:29:51.512184Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "75b156ff50",
+    "DateTimeString": "Nov 14, 2026 11:59",
+    "Timestamp": "2026-11-14T06:29:36.3956515Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "3ed9e3a677",
+    "DateTimeString": "Nov 14, 2026 11:59",
+    "Timestamp": "2026-11-14T06:29:28.5868598Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "39da2c4af3",
+    "DateTimeString": "Nov 14, 2026 11:59",
+    "Timestamp": "2026-11-14T06:29:22.9607303Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "5c6da9aa01",
+    "DateTimeString": "Nov 14, 2026 11:59",
+    "Timestamp": "2026-11-14T06:29:13.9348618Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "77318aa88b",
+    "DateTimeString": "Nov 14, 2026 11:57",
+    "Timestamp": "2026-11-14T06:27:57.5894741Z",
+    "User": "Admin User",
+    "Action": "Configuration Update",
+    "Module": "App Settings",
+    "Details": "Updated system and business configurations"
+  },
+  {
+    "Id": "5e190e5d77",
+    "DateTimeString": "Nov 14, 2026 10:47",
+    "Timestamp": "2026-11-14T05:17:13.9598591Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "3530ab0c3e",
+    "DateTimeString": "Nov 13, 2026 11:29",
+    "Timestamp": "2026-11-13T05:59:54.1510105Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "3677ca2cea",
+    "DateTimeString": "Nov 13, 2026 10:21",
+    "Timestamp": "2026-11-13T04:51:26.5388093Z",
+    "User": "Admin User",
+    "Action": "User Login",
+    "Module": "Authentication",
+    "Details": "User admin logged in successfully"
+  },
+  {
+    "Id": "11780b27b4",
+    "DateTimeString": "Nov 13, 2026 10:15",
+    "Timestamp": "2026-11-13T04:45:00.2904985Z",
+    "User": "Admin User",
+    "Action": "Updated Role",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Modified: Operator (Status: Active)"
+  },
+  {
+    "Id": "87f3f33243",
+    "DateTimeString": "Nov 13, 2026 10:15",
+    "Timestamp": "2026-11-13T04:45:00.2527623Z",
+    "User": "Admin User",
+    "Action": "Updated Role",
+    "Module": "Role \u0026 Permissions",
+    "Details": "Modified: Operator (Status: Inactive)"
+  },
+  {
     "Id": "54399bf4fd",
     "DateTimeString": "Nov 13, 2026 08:41",
     "Timestamp": "2026-11-13T03:11:08.8701351Z",

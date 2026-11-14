@@ -285,8 +285,8 @@ function renderDonutChart(distribution, total) {
   const container = document.getElementById('donutSvgWrap');
   if (!container) return;
 
-  const size = 180;
-  const strokeWidth = 26;
+  const size = 200;
+  const strokeWidth = 28;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
@@ -307,7 +307,7 @@ function renderDonutChart(distribution, total) {
               stroke-dashoffset="${strokeDashoffset}" 
               stroke-linecap="butt"
               style="transition: stroke-width 0.2s; cursor: pointer;">
-        <title>${item.label}: ${item.count.toLocaleString()} (${item.percentage}%)</title>
+        <title>${item.label}: ${Number(item.count).toLocaleString()} pipes (${item.percentage}%)</title>
       </circle>
     `;
   });
@@ -318,22 +318,33 @@ function renderDonutChart(distribution, total) {
       ${circlesHtml}
     </svg>
     <div class="donut-center-text">
-      <div class="donut-center-count">${Number(total).toLocaleString()}</div>
-      <div class="donut-center-sub">Pipes</div>
+      <div class="donut-center-count" style="font-size: 22px;">${Number(total).toLocaleString()}</div>
+      <div class="donut-center-sub" style="letter-spacing: 0.5px;">Pipes</div>
     </div>
   `;
 
-  // Render Legend
+  // Render Rich Legend with label, exact count, and percentage
   const legendWrap = document.getElementById('donutLegendList');
   if (legendWrap) {
     legendWrap.innerHTML = distribution.map(item => `
       <div class="donut-legend-item">
-        <div class="donut-legend-dot-label">
-          <span class="donut-color-dot" style="background-color: ${item.color};"></span>
-          <span>${item.label}</span>
+        <div class="donut-legend-dot-label" style="display: flex; align-items: center; gap: 8px;">
+          <span class="donut-color-dot" style="background-color: ${item.color}; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;"></span>
+          <span style="font-weight: 600; color: #1E293B;">${item.label}</span>
         </div>
-        <span class="donut-legend-pct">${item.percentage}%</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 11.5px; color: #64748B;">${Number(item.count).toLocaleString()}</span>
+          <span class="donut-legend-pct" style="font-weight: 700; color: #0F172A; min-width: 38px; text-align: right;">${item.percentage}%</span>
+        </div>
       </div>
+    `).join('');
+  }
+
+  // Update dynamic segmented ratio bar
+  const ratioBar = document.getElementById('stockRatioBar');
+  if (ratioBar) {
+    ratioBar.innerHTML = distribution.map(item => `
+      <div style="width: ${item.percentage}%; background-color: ${item.color}; height: 100%; transition: width 0.3s;" title="${item.label}: ${Number(item.count).toLocaleString()} (${item.percentage}%)"></div>
     `).join('');
   }
 }
@@ -419,8 +430,8 @@ function renderTrendChart(trends, metricKey = 'Inspections') {
   }
 
   // 3. SVG Dimensions & coordinate calculations
-  const width = 560;
-  const height = 240;
+  const width = 580;
+  const height = 260;
   const padding = { top: 32, right: 36, bottom: 48, left: 56 };
 
   const chartW = width - padding.left - padding.right;
@@ -1131,7 +1142,14 @@ function renderMatrixTable(modules) {
 }
 
 async function savePermissionMatrix() {
-  if (!currentPermissions) return;
+  if (!currentPermissions) {
+    currentPermissions = {
+      roleName: currentRoleForMatrix,
+      modules: []
+    };
+  }
+
+  currentPermissions.roleName = currentRoleForMatrix;
 
   const checkboxes = document.querySelectorAll('.perm-chk');
   checkboxes.forEach(cb => {
@@ -1143,19 +1161,30 @@ async function savePermissionMatrix() {
   });
 
   try {
-    const res = await fetch('/api/permissions', {
+    let res = await fetch('/api/permissions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(currentPermissions)
     });
 
+    if (!res.ok) {
+      // Fallback to role-specific PUT endpoint
+      res = await fetch(`/api/permissions/${encodeURIComponent(currentRoleForMatrix)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(currentPermissions)
+      });
+    }
+
     if (res.ok) {
-      showToast(`Permissions updated for role ${currentPermissions.roleName}`);
+      showToast(`Permissions updated successfully for ${currentRoleForMatrix}`);
+      await loadPermissionMatrix(currentRoleForMatrix);
     } else {
-      showToast('Failed to save permissions', 'error');
+      const err = await res.json().catch(() => ({}));
+      showToast(err.message || 'Failed to save permissions', 'error');
     }
   } catch (err) {
-    showToast('Network error saving permissions', 'error');
+    showToast('Network error saving permissions: ' + err.message, 'error');
   }
 }
 
@@ -1310,8 +1339,12 @@ function saveRejectionReasonModal() {
   const status = document.getElementById('rejectionReasonStatusSelect').value;
 
   if (!name) {
-    alert('Please enter a rejection reason name.');
+    showToast('Please enter a rejection reason name.', 'error');
     return;
+  }
+
+  if (!currentSettingsState.rejectionReasons) {
+    currentSettingsState.rejectionReasons = [];
   }
 
   if (editingRejectionReasonId) {
@@ -1382,75 +1415,103 @@ function updateAlertConfig(index, key, value) {
 }
 
 async function saveSettings() {
+  const getVal = (id, fallback = '') => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : fallback;
+  };
+  const getChecked = (id, fallback = false) => {
+    const el = document.getElementById(id);
+    return el ? el.checked : fallback;
+  };
+  const getInt = (id, fallback = 0) => {
+    const el = document.getElementById(id);
+    return el ? (parseInt(el.value) || fallback) : fallback;
+  };
+  const getFloat = (id, fallback = 0.0) => {
+    const el = document.getElementById(id);
+    return el ? (parseFloat(el.value) || fallback) : fallback;
+  };
+
   const payload = {
     // Tab 1: General
-    companyName: document.getElementById('settCompanyName').value.trim(),
-    defaultUnit: document.getElementById('settDefaultUnit').value,
-    dateFormat: document.getElementById('settDateFormat').value,
-    timeZone: document.getElementById('settTimeZone').value,
-    sessionTimeoutMinutes: parseInt(document.getElementById('settSessionTimeout').value),
-    enableMixWarning: document.getElementById('toggleMixWarning').checked,
-    enableDuplicatePipeCheck: document.getElementById('toggleDuplicatePipe').checked,
-    enableRejectionReasons: document.getElementById('toggleRejectionReasons').checked,
-    enableStockCountUpload: document.getElementById('toggleStockUpload').checked,
-    enableAuditTrail: document.getElementById('toggleAuditTrail').checked,
+    companyName: getVal('settCompanyName', 'ArcelorMittal Tubular Products'),
+    defaultUnit: getVal('settDefaultUnit', 'Metric (m, mm, kg)'),
+    dateFormat: getVal('settDateFormat', 'DD-MMM-YYYY'),
+    timeZone: getVal('settTimeZone', '(GMT+04:00) Abu Dhabi'),
+    sessionTimeoutMinutes: getInt('settSessionTimeout', 30),
+    enableMixWarning: getChecked('toggleMixWarning', true),
+    enableDuplicatePipeCheck: getChecked('toggleDuplicatePipe', true),
+    enableRejectionReasons: getChecked('toggleRejectionReasons', true),
+    enableStockCountUpload: getChecked('toggleStockUpload', true),
+    enableAuditTrail: getChecked('toggleAuditTrail', true),
 
     // Tab 2: Pipe & Tally
-    pipeIdPrefix: document.getElementById('settPipeIdPrefix').value.trim(),
-    jointNumberStart: parseInt(document.getElementById('settJointNumberStart').value) || 1,
-    defaultConnectionType: document.getElementById('settDefaultConnectionType').value,
-    defaultDriftType: document.getElementById('settDefaultDriftType').value,
-    effectiveLengthUnit: document.getElementById('settEffectiveLengthUnit').value,
-    allowTallyCreation: document.getElementById('toggleAllowTallyCreation').checked,
-    allowTallyEditing: document.getElementById('toggleAllowTallyEditing').checked,
-    enforceUniquePipeInTally: document.getElementById('toggleEnforceUniquePipe').checked,
-    autoGenerateJointSequence: document.getElementById('toggleAutoSequence').checked,
-    allowTallyClosure: document.getElementById('toggleAllowTallyClosure').checked,
+    pipeIdPrefix: getVal('settPipeIdPrefix', 'P-'),
+    jointNumberStart: getInt('settJointNumberStart', 1),
+    defaultConnectionType: getVal('settDefaultConnectionType', 'API'),
+    defaultDriftType: getVal('settDefaultDriftType', 'Full Drift'),
+    effectiveLengthUnit: getVal('settEffectiveLengthUnit', 'm (Meter)'),
+    allowTallyCreation: getChecked('toggleAllowTallyCreation', true),
+    allowTallyEditing: getChecked('toggleAllowTallyEditing', true),
+    enforceUniquePipeInTally: getChecked('toggleEnforceUniquePipe', true),
+    autoGenerateJointSequence: getChecked('toggleAutoSequence', true),
+    allowTallyClosure: getChecked('toggleAllowTallyClosure', true),
 
     // Tab 3: Inspection & Quality
-    inspectionThresholdMm: parseFloat(document.getElementById('settInspectionThreshold').value) || 0.25,
-    defaultInspectionType: document.getElementById('settDefaultInspectionType').value,
-    maxReworkAttempts: parseInt(document.getElementById('settMaxReworkAttempts').value) || 2,
-    inspectionValidityDays: parseInt(document.getElementById('settInspectionValidity').value) || 180,
-    rejectionReasons: currentSettingsState.rejectionReasons,
+    inspectionThresholdMm: getFloat('settInspectionThreshold', 0.25),
+    defaultInspectionType: getVal('settDefaultInspectionType', 'Dimensional'),
+    maxReworkAttempts: getInt('settMaxReworkAttempts', 2),
+    inspectionValidityDays: getInt('settInspectionValidity', 180),
+    rejectionReasons: currentSettingsState.rejectionReasons || [],
 
     // Tab 4: Notifications
-    alertConfigurations: currentSettingsState.alertConfigurations,
-    enableNotifications: document.getElementById('toggleEnableNotifications').checked,
-    notificationFrequency: document.getElementById('settNotificationFrequency').value,
-    dailySummaryEmail: document.getElementById('toggleDailySummaryEmail').checked,
-    recipientsAdmin: document.getElementById('settRecipientsAdmin').value.trim(),
+    alertConfigurations: currentSettingsState.alertConfigurations || [],
+    enableNotifications: getChecked('toggleEnableNotifications', true),
+    notificationFrequency: getVal('settNotificationFrequency', 'Real-time'),
+    dailySummaryEmail: getChecked('toggleDailySummaryEmail', true),
+    recipientsAdmin: getVal('settRecipientsAdmin', 'admin@arcelormittal.com'),
 
     // Tab 5: System
-    applicationVersion: document.getElementById('settAppVersion').value,
-    environment: document.getElementById('settEnvironment').value,
-    systemName: document.getElementById('settSystemName').value.trim(),
-    lastUpdated: document.getElementById('settLastUpdated').value,
-    enableAutoBackup: document.getElementById('toggleEnableAutoBackup').checked,
-    backupFrequency: document.getElementById('settBackupFrequency').value,
-    retentionPeriodDays: parseInt(document.getElementById('settRetentionPeriod').value) || 90,
-    backupLocation: document.getElementById('settBackupLocation').value.trim(),
-    enableMfa: document.getElementById('toggleEnableMfa').checked,
-    enableSso: document.getElementById('toggleEnableSso').checked,
-    erpIntegrationApi: document.getElementById('toggleErpIntegration').checked,
-    dataWarehouseIntegration: document.getElementById('toggleDataWarehouse').checked,
-    logRetentionDays: parseInt(document.getElementById('settLogRetention').value) || 365
+    applicationVersion: getVal('settAppVersion', 'v1.0.0'),
+    environment: getVal('settEnvironment', 'Production'),
+    systemName: getVal('settSystemName', 'Pipe Traceability Web Portal'),
+    lastUpdated: getVal('settLastUpdated', new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })),
+    enableAutoBackup: getChecked('toggleEnableAutoBackup', true),
+    backupFrequency: getVal('settBackupFrequency', 'Daily'),
+    retentionPeriodDays: getInt('settRetentionPeriod', 90),
+    backupLocation: getVal('settBackupLocation', 'D:\\Backups\\PipeTraceability'),
+    enableMfa: getChecked('toggleEnableMfa', true),
+    enableSso: getChecked('toggleEnableSso', false),
+    erpIntegrationApi: getChecked('toggleErpIntegration', true),
+    dataWarehouseIntegration: getChecked('toggleDataWarehouse', true),
+    logRetentionDays: getInt('settLogRetention', 365)
   };
 
   try {
-    const res = await fetch('/api/settings', {
+    let res = await fetch('/api/settings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
 
+    if (!res.ok && res.status === 405) {
+      // Fallback to PUT if POST not allowed
+      res = await fetch('/api/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    }
+
     if (res.ok) {
+      currentSettingsState = { ...currentSettingsState, ...payload };
       showToast('Settings saved successfully and persisted to database');
     } else {
-      showToast('Failed to save settings', 'error');
+      const err = await res.json().catch(() => ({}));
+      showToast(err.message || 'Failed to save settings', 'error');
     }
   } catch (err) {
-    showToast('Error saving settings', 'error');
+    showToast('Error saving settings: ' + err.message, 'error');
   }
 }
 
